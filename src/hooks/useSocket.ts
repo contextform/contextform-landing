@@ -37,6 +37,16 @@ export const useSocket = ({ userCredentials, selectedDocument }: UseSocketProps)
   const [modifications, setModifications] = useState<Modification[]>([]);
   const [modificationProgress, setModificationProgress] = useState<string>('');
   const [thinkingTimeout, setThinkingTimeout] = useState<NodeJS.Timeout | null>(null);
+  const [pendingModification, setPendingModification] = useState<{
+    featureId: string;
+    parameterId: string;
+    oldValue: string;
+    newValue: string;
+    intent: string;
+    originalState?: any;
+    applied?: boolean;
+  } | null>(null);
+  const [currentGeometry, setCurrentGeometry] = useState<any>(null);
 
   useEffect(() => {
     const newSocket = io('http://localhost:3000');
@@ -51,8 +61,8 @@ export const useSocket = ({ userCredentials, selectedDocument }: UseSocketProps)
         selectedDocument
       });
       
-      // Request features when connected
-      newSocket.emit('get_current_features');
+      // Request both features and geometry in one call (50% fewer API calls)
+      newSocket.emit('get_model_data');
     });
 
     newSocket.on('disconnect', () => {
@@ -86,16 +96,33 @@ export const useSocket = ({ userCredentials, selectedDocument }: UseSocketProps)
       }
     });
 
-    newSocket.on('bot_response', (data: { message: string; timestamp: string; features?: Feature[] }) => {
+    newSocket.on('bot_response', (data: { 
+      message: string; 
+      timestamp: string; 
+      features?: Feature[];
+      memoryContext?: {
+        found: number;
+        summary: string[];
+      };
+      memoryEntry?: string;
+    }) => {
       // Clear thinking timeout since we got a response
       if (thinkingTimeout) {
         clearTimeout(thinkingTimeout);
         setThinkingTimeout(null);
       }
       
+      let messageContent = data.message;
+      
+      // Add memory context visualization if available
+      if (data.memoryContext && data.memoryContext.found > 0) {
+        const memoryNote = `\n\n💭 *Based on ${data.memoryContext.found} similar past decision${data.memoryContext.found > 1 ? 's' : ''}:*\n${data.memoryContext.summary.map(s => `• ${s}`).join('\n')}`;
+        messageContent += memoryNote;
+      }
+      
       const newMessage: Message = {
         id: Date.now().toString(),
-        content: data.message,
+        content: messageContent,
         sender: 'ai',
         timestamp: data.timestamp,
       };
@@ -107,6 +134,23 @@ export const useSocket = ({ userCredentials, selectedDocument }: UseSocketProps)
       }
     });
 
+    // Handle combined model data response
+    newSocket.on('model_data_update', (data: { features: Feature[]; geometry: any; timestamp: string }) => {
+      console.log('📦 Received combined model data update');
+      setFeatures(data.features);
+      if (data.geometry) {
+        console.log('🔄 Updating geometry from combined model data');
+        setCurrentGeometry(data.geometry);
+      }
+    });
+
+    newSocket.on('model_data_error', (error: string) => {
+      console.error('Model data error:', error);
+      setFeatures([]);
+      setCurrentGeometry(null);
+    });
+
+    // Legacy handler for backward compatibility
     newSocket.on('current_features', (newFeatures: Feature[]) => {
       setFeatures(newFeatures);
     });
@@ -141,10 +185,61 @@ export const useSocket = ({ userCredentials, selectedDocument }: UseSocketProps)
       setModificationProgress(message);
     });
 
-    newSocket.on('modification_success', (data: { modification: Modification; features: Feature[]; message: string }) => {
+    // Handle modification preview
+    newSocket.on('modification_preview', (data: {
+      featureId: string;
+      parameterId: string;
+      oldValue: string;
+      newValue: string;
+      intent: string;
+      message: string;
+      currentFeature: any;
+      currentGeometry?: any;
+      originalState?: any;
+      applied?: boolean;
+    }) => {
+      console.log('📨 Received modification_preview:', data.message);
+      console.log('📐 Preview has geometry:', data.currentGeometry ? 'YES' : 'NO');
+      
+      // Update geometry if included in preview
+      if (data.currentGeometry) {
+        console.log('🔄 Updating geometry from modification preview');
+        setCurrentGeometry(data.currentGeometry);
+      }
+      
+      setPendingModification({
+        featureId: data.featureId,
+        parameterId: data.parameterId,
+        oldValue: data.oldValue,
+        newValue: data.newValue,
+        intent: data.intent,
+        originalState: data.originalState,
+        applied: data.applied
+      });
+      
+      const previewMessage: Message = {
+        id: Date.now().toString(),
+        content: data.applied 
+          ? `🔄 ${data.message}\n\nChanges are now visible in your 3D model. Click "Keep Changes" to confirm, or "Revert" to undo.`
+          : `🔍 ${data.message}\n\nClick "Approve" in the 3D preview to apply this change, or "Reject" to cancel.`,
+        sender: 'ai',
+        timestamp: new Date().toISOString(),
+      };
+      
+      setMessages(prev => [...prev, previewMessage]);
+    });
+
+    newSocket.on('modification_success', (data: { modification: Modification; features: Feature[]; geometry?: any; message: string }) => {
       setModificationProgress('');
       setModifications(prev => [...prev, data.modification]);
       setFeatures(data.features);
+      setPendingModification(null); // Clear pending modification
+      
+      // Update 3D geometry if included
+      if (data.geometry) {
+        console.log('🔄 Updating 3D geometry after modification success');
+        setCurrentGeometry(data.geometry);
+      }
       
       const successMessage: Message = {
         id: Date.now().toString(),
@@ -171,6 +266,37 @@ export const useSocket = ({ userCredentials, selectedDocument }: UseSocketProps)
 
     newSocket.on('design_memory', (memory: DesignMemory) => {
       setModifications(memory.modifications);
+    });
+
+    // Listen for Onshape changes (from other sources)
+    newSocket.on('onshape_changed', (data: { event: any; features: Feature[]; geometry?: any; timestamp: string }) => {
+      console.log('📡 Onshape changed externally:', data.event);
+      setFeatures(data.features);
+      
+      // Update 3D geometry if included
+      if (data.geometry) {
+        console.log('🔄 Updating 3D geometry from change detection');
+        setCurrentGeometry(data.geometry);
+      }
+      
+      // Add a system message about the external change
+      const systemMessage: Message = {
+        id: `system-${Date.now()}`,
+        content: '🔄 Model updated externally in Onshape',
+        sender: 'system' as 'ai',
+        timestamp: data.timestamp,
+      };
+      setMessages(prev => [...prev, systemMessage]);
+    });
+
+    // Listen for 3D geometry updates
+    newSocket.on('3d_geometry_update', (geometry: any) => {
+      console.log('📐 Received 3D geometry update:', geometry);
+      setCurrentGeometry(geometry);
+    });
+
+    newSocket.on('3d_geometry_error', (error: string) => {
+      console.error('❌ 3D geometry error:', error);
     });
 
     setSocket(newSocket);
@@ -204,6 +330,13 @@ export const useSocket = ({ userCredentials, selectedDocument }: UseSocketProps)
     }
   };
 
+  const refreshModelData = () => {
+    if (socket) {
+      console.log('🔄 Refreshing complete model data...');
+      socket.emit('get_model_data');
+    }
+  };
+
   const modifyParameter = (featureId: string, parameterId: string, newValue: string, intent?: string) => {
     if (socket) {
       socket.emit('modify_parameter', { featureId, parameterId, newValue, intent });
@@ -216,6 +349,42 @@ export const useSocket = ({ userCredentials, selectedDocument }: UseSocketProps)
     }
   };
 
+  const get3DGeometry = () => {
+    if (socket) {
+      socket.emit('get_3d_geometry');
+    }
+  };
+
+  const approvePendingModification = () => {
+    if (socket && pendingModification) {
+      socket.emit('approve_modification', pendingModification);
+    }
+  };
+
+  const rejectPendingModification = () => {
+    if (socket && pendingModification) {
+      if (pendingModification.applied && pendingModification.originalState) {
+        // Revert the changes
+        socket.emit('revert_modification', {
+          featureId: pendingModification.featureId,
+          parameterId: pendingModification.parameterId,
+          originalValue: pendingModification.originalState.originalValue,
+          newValue: pendingModification.newValue
+        });
+      } else {
+        // Just cancel the preview
+        setPendingModification(null);
+        const rejectMessage: Message = {
+          id: Date.now().toString(),
+          content: '❌ Modification cancelled.',
+          sender: 'system' as 'ai',
+          timestamp: new Date().toISOString(),
+        };
+        setMessages(prev => [...prev, rejectMessage]);
+      }
+    }
+  };
+
   return {
     connected,
     messages,
@@ -223,9 +392,15 @@ export const useSocket = ({ userCredentials, selectedDocument }: UseSocketProps)
     isThinking,
     modifications,
     modificationProgress,
+    pendingModification,
+    currentGeometry,
     sendMessage,
     refreshFeatures,
+    refreshModelData,
     modifyParameter,
     getDesignMemory,
+    get3DGeometry,
+    approvePendingModification,
+    rejectPendingModification,
   };
 };

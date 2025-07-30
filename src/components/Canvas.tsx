@@ -1,8 +1,7 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import ReactFlow, {
   Background,
   Controls,
-  MiniMap,
   ReactFlowProvider,
   addEdge,
   useNodesState,
@@ -12,13 +11,7 @@ import ReactFlow, {
 import type { Node, Edge, Connection } from 'reactflow';
 import 'reactflow/dist/style.css';
 import ChatPanel from './ChatPanel';
-import { 
-  MaterialNode, 
-  ConstraintsNode, 
-  LoadNode, 
-  FEASolverNode, 
-  ResultsNode 
-} from './nodes';
+import PreviewPanel from './PreviewPanel';
 
 interface UserCredentials {
   email: string;
@@ -41,308 +34,85 @@ interface CanvasProps {
   onNavigateToHome?: () => void;
 }
 
-// Define custom node types
-const nodeTypes = {
-  materialNode: MaterialNode,
-  constraintsNode: ConstraintsNode,
-  loadNode: LoadNode,
-  feaSolverNode: FEASolverNode,
-  resultsNode: ResultsNode,
-};
-
 const Canvas = ({ userCredentials, selectedDocument, onBack, onNavigateToHome }: CanvasProps) => {
-  const [simulationResults, setSimulationResults] = useState({
-    hasResults: false,
-    maxStress: 45.2,
-    safetyFactor: 2.1,
-    maxDisplacement: 0.15
+  const [previewWidth, setPreviewWidth] = useState(450);
+  const [isResizingPreview, setIsResizingPreview] = useState(false);
+  const [chatPanelWidth, setChatPanelWidth] = useState(1000);
+  const [previewGeometry, setPreviewGeometry] = useState<{current?: string, proposed?: string}>({
+    current: 'placeholder_current',
+    proposed: undefined
   });
 
-  const [isGeneratingFEA, setIsGeneratingFEA] = useState(false);
-  const [showFEAWorkflow, setShowFEAWorkflow] = useState(false);
+  // Empty canvas - no nodes at all
+  const initialNodes: Node[] = [];
+  const initialEdges: Edge[] = [];
 
-  // Start with just the CAD geometry node
-  const getInitialNodes = (): Node[] => {
-    const baseNodes = [
-      {
-        id: 'geometry-1',
-        type: 'default',
-        position: { x: 250, y: 150 },
-        data: { 
-          label: `📦 ${selectedDocument.name}\nCAD Geometry` 
-        },
-        style: { 
-          background: '#f0f9ff', 
-          border: '2px solid #0ea5e9',
-          borderRadius: '8px',
-          minWidth: '150px',
-          textAlign: 'center'
-        }
-      },
-      {
-        id: 'generate-fea',
-        type: 'default',
-        position: { x: 500, y: 150 },
-        data: { 
-          label: isGeneratingFEA ? "🔄 Generating FEA simulation..." : "⚡ Start Generate FEA simulation!" 
-        },
-        style: { 
-          background: isGeneratingFEA ? '#fef3c7' : '#dcfce7', 
-          border: isGeneratingFEA ? '2px solid #f59e0b' : '2px solid #16a34a',
-          borderRadius: '8px',
-          minWidth: '180px',
-          textAlign: 'center',
-          cursor: isGeneratingFEA ? 'wait' : 'pointer'
-        }
-      }
-    ];
-
-    // Only show close button when FEA workflow is expanded
-    if (showFEAWorkflow) {
-      baseNodes.push({
-        id: 'close-fea',
-        type: 'default',
-        position: { x: 1500, y: 50 },
-        data: { 
-          label: "❌ Collapse Workflow" 
-        },
-        style: { 
-          background: '#fef2f2', 
-          border: '2px solid #ef4444',
-          borderRadius: '8px',
-          minWidth: '140px',
-          textAlign: 'center',
-          cursor: 'pointer'
-        }
-      });
-    }
-
-    return baseNodes;
-  };
-
-  const getInitialEdges = (): Edge[] => {
-    const baseEdges = [
-      { id: 'e1-gen', source: 'geometry-1', target: 'generate-fea' }
-    ];
-
-    // No edge to close button - it's independent when workflow is expanded
-    return baseEdges;
-  };
-
-  const initialNodes: Node[] = getInitialNodes();
-  const initialEdges: Edge[] = getInitialEdges();
-
-  // Function to generate FEA nodes
-  const generateFEANodes = async () => {
-    setIsGeneratingFEA(true);
-    
-    // Update the generator node
-    setNodes((nds) =>
-      nds.map((node) =>
-        node.id === 'generate-fea'
-          ? { 
-              ...node, 
-              data: { label: "🔄 Generating FEA simulation..." },
-              style: { 
-                ...node.style,
-                background: '#fef3c7',
-                border: '2px solid #f59e0b',
-                cursor: 'wait'
-              }
-            }
-          : node
-      )
-    );
-
-    // Simulate AI thinking time
-    await new Promise(resolve => setTimeout(resolve, 2000));
-
-    // Add FEA nodes
-    const feaNodes: Node[] = [
-      {
-        id: 'material-1',
-        type: 'materialNode',
-        position: { x: 300, y: 50 },
-        data: {
-          material: 'steel',
-          onMaterialChange: (material: string) => {
-            console.log('Material changed to:', material);
-          }
-        }
-      },
-      {
-        id: 'constraints-1',
-        type: 'constraintsNode',
-        position: { x: 300, y: 250 },
-        data: {
-          constraint: 'fixed',
-          onConstraintChange: (constraint: string) => {
-            console.log('Constraint changed to:', constraint);
-          }
-        }
-      },
-      {
-        id: 'load-1',
-        type: 'loadNode',
-        position: { x: 650, y: 150 },
-        data: {
-          loadType: 'force',
-          magnitude: 100,
-          direction: 'y',
-          onLoadChange: (loadType: string, magnitude: number, direction: string) => {
-            console.log('Load changed:', { loadType, magnitude, direction });
-          }
-        }
-      },
-      {
-        id: 'solver-1',
-        type: 'feaSolverNode',
-        position: { x: 950, y: 150 },
-        data: {
-          isRunning: false,
-          onSolve: () => {
-            console.log('Starting FEA analysis...');
-            setTimeout(() => {
-              setSimulationResults({
-                hasResults: true,
-                maxStress: 42.8 + Math.random() * 10,
-                safetyFactor: 1.8 + Math.random() * 0.6,
-                maxDisplacement: 0.12 + Math.random() * 0.08
-              });
-            }, 4000);
-          }
-        }
-      },
-      {
-        id: 'results-1',
-        type: 'resultsNode',
-        position: { x: 1250, y: 150 },
-        data: simulationResults
-      }
-    ];
-
-    const feaEdges: Edge[] = [
-      { id: 'e1-2', source: 'geometry-1', target: 'material-1' },
-      { id: 'e1-3', source: 'geometry-1', target: 'constraints-1' },
-      { id: 'e2-4', source: 'material-1', target: 'solver-1' },
-      { id: 'e3-4', source: 'constraints-1', target: 'solver-1' },
-      { id: 'e4-5', source: 'load-1', target: 'solver-1' },
-      { id: 'e5-6', source: 'solver-1', target: 'results-1' }
-    ];
-
-    // Remove the generator node and add FEA nodes
-    setNodes((nds) => [
-      ...nds.filter(node => node.id !== 'generate-fea'),
-      ...feaNodes
-    ]);
-
-    setEdges((eds) => [
-      ...eds.filter(edge => edge.id !== 'e1-gen'),
-      ...feaEdges
-    ]);
-
-    setIsGeneratingFEA(false);
-    setShowFEAWorkflow(true);
-  };
-
-  // Function to close/collapse FEA workflow
-  const closeFEAWorkflow = () => {
-    // Reset to initial simple view
-    const resetNodes: Node[] = [
-      {
-        id: 'geometry-1',
-        type: 'default',
-        position: { x: 250, y: 150 },
-        data: { 
-          label: `📦 ${selectedDocument.name}\nCAD Geometry` 
-        },
-        style: { 
-          background: '#f0f9ff', 
-          border: '2px solid #0ea5e9',
-          borderRadius: '8px',
-          minWidth: '150px',
-          textAlign: 'center'
-        }
-      },
-      {
-        id: 'generate-fea',
-        type: 'default',
-        position: { x: 500, y: 150 },
-        data: { 
-          label: "⚡ Start Generate FEA simulation!" 
-        },
-        style: { 
-          background: '#dcfce7', 
-          border: '2px solid #16a34a',
-          borderRadius: '8px',
-          minWidth: '180px',
-          textAlign: 'center',
-          cursor: 'pointer'
-        }
-      },
-      {
-        id: 'close-fea',
-        type: 'default',
-        position: { x: 750, y: 150 },
-        data: { 
-          label: "❌ Close FEA Workflow" 
-        },
-        style: { 
-          background: '#fef2f2', 
-          border: '2px solid #ef4444',
-          borderRadius: '8px',
-          minWidth: '160px',
-          textAlign: 'center',
-          cursor: 'pointer'
-        }
-      }
-    ];
-
-    const resetEdges: Edge[] = [
-      { id: 'e1-gen', source: 'geometry-1', target: 'generate-fea' },
-      { id: 'e1-close', source: 'geometry-1', target: 'close-fea' }
-    ];
-
-    setNodes(resetNodes);
-    setEdges(resetEdges);
-    
-    // Reset states
-    setShowFEAWorkflow(false);
-    setSimulationResults({
-      hasResults: false,
-      maxStress: 45.2,
-      safetyFactor: 2.1,
-      maxDisplacement: 0.15
-    });
-  };
-
-  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
+  const [nodes, , onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
-
-  // Update results node when simulation results change
-  React.useEffect(() => {
-    setNodes((nds) =>
-      nds.map((node) =>
-        node.id === 'results-1'
-          ? { ...node, data: { ...node.data, ...simulationResults } }
-          : node
-      )
-    );
-  }, [simulationResults, setNodes]);
 
   const onConnect = useCallback(
     (params: Edge | Connection) => setEdges((eds) => addEdge(params, eds)),
     [setEdges]
   );
 
-  // Handle node clicks
-  const onNodeClick = useCallback((event: React.MouseEvent, node: Node) => {
-    if (node.id === 'generate-fea' && !isGeneratingFEA) {
-      generateFEANodes();
-    } else if (node.id === 'close-fea') {
-      closeFEAWorkflow();
+  // Preview resize handlers
+  const handlePreviewResizeStart = (e: React.MouseEvent) => {
+    setIsResizingPreview(true);
+    e.preventDefault();
+  };
+
+  const handlePreviewResizeMove = (e: MouseEvent) => {
+    if (!isResizingPreview) return;
+    
+    const viewportWidth = window.innerWidth;
+    const newPreviewWidth = viewportWidth - e.clientX - 16; // 16px for right margin
+    
+    const minPreviewWidth = 300;
+    const maxPreviewWidth = 800;
+    const minChatWidth = 600;
+    const gap = 20; // Minimum gap between panels
+    const leftMargin = 16; // Chat panel left margin
+    
+    // Calculate maximum allowed preview width to maintain gap
+    const maxAllowedPreviewWidth = viewportWidth - leftMargin - minChatWidth - gap - 16;
+    
+    // Constrain preview width
+    const constrainedPreviewWidth = Math.min(
+      Math.max(newPreviewWidth, minPreviewWidth), 
+      Math.min(maxPreviewWidth, maxAllowedPreviewWidth)
+    );
+    
+    // Calculate new chat panel width to fill the space
+    const newChatWidth = viewportWidth - leftMargin - constrainedPreviewWidth - gap - 16;
+    
+    setPreviewWidth(constrainedPreviewWidth);
+    setChatPanelWidth(Math.max(newChatWidth, minChatWidth));
+  };
+
+  const handlePreviewResizeEnd = () => {
+    setIsResizingPreview(false);
+  };
+
+  useEffect(() => {
+    if (isResizingPreview) {
+      document.addEventListener('mousemove', handlePreviewResizeMove);
+      document.addEventListener('mouseup', handlePreviewResizeEnd);
+      document.body.style.cursor = 'col-resize';
+      document.body.style.userSelect = 'none';
+    } else {
+      document.removeEventListener('mousemove', handlePreviewResizeMove);
+      document.removeEventListener('mouseup', handlePreviewResizeEnd);
+      document.body.style.cursor = '';
+      document.body.style.userSelect = '';
     }
-  }, [isGeneratingFEA]);
+
+    return () => {
+      document.removeEventListener('mousemove', handlePreviewResizeMove);
+      document.removeEventListener('mouseup', handlePreviewResizeEnd);
+      document.body.style.cursor = '';
+      document.body.style.userSelect = '';
+    };
+  }, [isResizingPreview]);
 
   return (
     <div className="h-screen w-full relative">
@@ -382,8 +152,6 @@ const Canvas = ({ userCredentials, selectedDocument, onBack, onNavigateToHome }:
           onNodesChange={onNodesChange}
           onEdgesChange={onEdgesChange}
           onConnect={onConnect}
-          onNodeClick={onNodeClick}
-          nodeTypes={nodeTypes}
           fitView
           className="bg-gray-50"
           selectionOnDrag
@@ -403,7 +171,7 @@ const Canvas = ({ userCredentials, selectedDocument, onBack, onNavigateToHome }:
           />
         </ReactFlow>
         
-        {/* Chat Panel floating in center */}
+        {/* Unified Three-Column Panel */}
         <ChatPanel 
           userCredentials={userCredentials}
           selectedDocument={selectedDocument}

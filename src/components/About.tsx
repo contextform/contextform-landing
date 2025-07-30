@@ -44,7 +44,7 @@ export default function About({ onNavigateToHome }: AboutProps) {
               </p>
               
               <p className="text-lg text-gray-700">
-                Built by <a href="https://www.linkedin.com/in/josephwuu/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline">Joseph</a>, <a href="https://www.linkedin.com/in/k-yr-k/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline">Kenny</a>, <a href="https://www.linkedin.com/in/ib-ibrahim/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline">Ibrahim</a>.
+                Built by <a href="https://www.linkedin.com/in/josephwuu/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline">Joseph</a> and <a href="https://www.linkedin.com/in/k-yr-k/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline">Kenny</a>.
               </p>
             </div>
 
