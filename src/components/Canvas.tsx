@@ -11,7 +11,6 @@ import ReactFlow, {
 import type { Node, Edge, Connection } from 'reactflow';
 import 'reactflow/dist/style.css';
 import ChatPanel from './ChatPanel';
-import PreviewPanel from './PreviewPanel';
 
 interface UserCredentials {
   email: string;

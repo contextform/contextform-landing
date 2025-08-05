@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { useSocket } from '../hooks/useSocket';
 import FeaturesList from './FeaturesList';
-import PreviewPanel from './PreviewPanel';
 
 interface UserCredentials {
   email: string;
@@ -25,9 +24,7 @@ interface ChatPanelProps {
 const ChatPanel = ({ userCredentials, selectedDocument }: ChatPanelProps) => {
   const [inputValue, setInputValue] = useState('');
   const [leftWidth, setLeftWidth] = useState(280); // Features panel width
-  const [rightWidth, setRightWidth] = useState(450); // 3D preview panel width
   const [isResizingLeft, setIsResizingLeft] = useState(false);
-  const [isResizingRight, setIsResizingRight] = useState(false);
   const [previewGeometry, setPreviewGeometry] = useState<{current?: string, proposed?: string}>({
     current: 'placeholder_current',
     proposed: undefined
@@ -41,11 +38,8 @@ const ChatPanel = ({ userCredentials, selectedDocument }: ChatPanelProps) => {
     isThinking, 
     modificationProgress, 
     pendingModification,
-    currentGeometry,
     sendMessage, 
     refreshFeatures,
-    refreshModelData,
-    get3DGeometry,
     approvePendingModification,
     rejectPendingModification
   } = useSocket({
@@ -98,49 +92,19 @@ const ChatPanel = ({ userCredentials, selectedDocument }: ChatPanelProps) => {
     setLeftWidth(constrainedWidth);
   };
 
-  // Resizing handlers for right divider
-  const handleRightMouseDown = (e: React.MouseEvent) => {
-    setIsResizingRight(true);
-    e.preventDefault();
-  };
-
-  const handleRightMouseMove = (e: MouseEvent) => {
-    if (!isResizingRight) return;
-    
-    const panel = document.querySelector('.chat-panel-container') as HTMLElement;
-    if (!panel) return;
-    
-    const panelRect = panel.getBoundingClientRect();
-    const newRightWidth = panelRect.right - e.clientX;
-    
-    const minWidth = 350;
-    const maxWidth = 600;
-    const constrainedWidth = Math.min(Math.max(newRightWidth, minWidth), maxWidth);
-    
-    setRightWidth(constrainedWidth);
-  };
 
   const handleMouseUp = () => {
     setIsResizingLeft(false);
-    setIsResizingRight(false);
   };
 
   useEffect(() => {
-    const isResizing = isResizingLeft || isResizingRight;
-    
-    if (isResizing) {
-      if (isResizingLeft) {
-        document.addEventListener('mousemove', handleLeftMouseMove);
-      }
-      if (isResizingRight) {
-        document.addEventListener('mousemove', handleRightMouseMove);
-      }
+    if (isResizingLeft) {
+      document.addEventListener('mousemove', handleLeftMouseMove);
       document.addEventListener('mouseup', handleMouseUp);
       document.body.style.cursor = 'col-resize';
       document.body.style.userSelect = 'none';
     } else {
       document.removeEventListener('mousemove', handleLeftMouseMove);
-      document.removeEventListener('mousemove', handleRightMouseMove);
       document.removeEventListener('mouseup', handleMouseUp);
       document.body.style.cursor = '';
       document.body.style.userSelect = '';
@@ -148,12 +112,11 @@ const ChatPanel = ({ userCredentials, selectedDocument }: ChatPanelProps) => {
 
     return () => {
       document.removeEventListener('mousemove', handleLeftMouseMove);
-      document.removeEventListener('mousemove', handleRightMouseMove);
       document.removeEventListener('mouseup', handleMouseUp);
       document.body.style.cursor = '';
       document.body.style.userSelect = '';
     };
-  }, [isResizingLeft, isResizingRight]);
+  }, [isResizingLeft]);
 
 
   return (
@@ -173,7 +136,7 @@ const ChatPanel = ({ userCredentials, selectedDocument }: ChatPanelProps) => {
         
         {/* Features List */}
         <div className="flex-1 overflow-y-auto p-4">
-          <FeaturesList features={features} onRefresh={refreshModelData} />
+          <FeaturesList features={features} onRefresh={refreshFeatures} />
         </div>
       </div>
 
@@ -191,7 +154,7 @@ const ChatPanel = ({ userCredentials, selectedDocument }: ChatPanelProps) => {
       {/* Middle Section - Chat Interface */}
       <div 
         className="flex flex-col"
-        style={{ width: `calc(100% - ${leftWidth}px - ${rightWidth}px - 2px)` }}
+        style={{ width: `calc(100% - ${leftWidth}px - 1px)` }}
       >
         {/* Chat Header */}
         <div className="flex items-center justify-between p-4 border-b border-gray-200 bg-black text-white">
@@ -266,6 +229,43 @@ const ChatPanel = ({ userCredentials, selectedDocument }: ChatPanelProps) => {
           </div>
         </div>
 
+        {/* Pending Modification Actions */}
+        {pendingModification && (
+          <div className="p-4 border-t border-gray-200 bg-blue-50">
+            <div className="mb-3 p-3 bg-white border border-blue-200 rounded-lg">
+              <div className="text-xs font-medium text-blue-900 mb-1">Pending Change:</div>
+              <div className="text-sm text-blue-800">
+                {pendingModification.parameterId}: {pendingModification.oldValue} → {pendingModification.newValue}
+              </div>
+              {pendingModification.intent && (
+                <div className="text-xs text-blue-600 mt-1">Reason: {pendingModification.intent}</div>
+              )}
+            </div>
+            <div className="flex gap-2">
+              <button
+                onClick={() => {
+                  if (pendingModification) {
+                    approvePendingModification();
+                  }
+                }}
+                className="flex-1 bg-green-500 text-white px-3 py-2 rounded-lg hover:bg-green-600 transition-colors text-sm font-medium"
+              >
+                ✓ Apply Changes
+              </button>
+              <button
+                onClick={() => {
+                  if (pendingModification) {
+                    rejectPendingModification();
+                  }
+                }}
+                className="flex-1 bg-red-500 text-white px-3 py-2 rounded-lg hover:bg-red-600 transition-colors text-sm font-medium"
+              >
+                ✗ Cancel
+              </button>
+            </div>
+          </div>
+        )}
+
         {/* Input */}
         <div className="p-4 border-t border-gray-200">
           <form onSubmit={handleSubmit}>
@@ -294,39 +294,6 @@ const ChatPanel = ({ userCredentials, selectedDocument }: ChatPanelProps) => {
         </div>
       </div>
 
-      {/* Right Resizable Divider */}
-      <div 
-        className={`w-1 bg-gray-200 hover:bg-gray-300 cursor-col-resize transition-colors relative group ${
-          isResizingRight ? 'bg-blue-400' : ''
-        }`}
-        onMouseDown={handleRightMouseDown}
-      >
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1 h-8 bg-gray-400 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
-        </div>
-      </div>
-
-      {/* Right Section - 3D Preview */}
-      <div 
-        className="flex flex-col"
-        style={{ width: `${rightWidth}px` }}
-      >
-        <PreviewPanel 
-          currentGeometry={currentGeometry}
-          proposedGeometry={pendingModification ? 'proposed_geometry_placeholder' : undefined}
-          pendingModification={pendingModification}
-          onApplyChanges={() => {
-            if (pendingModification) {
-              approvePendingModification();
-            }
-          }}
-          onRejectChanges={() => {
-            if (pendingModification) {
-              rejectPendingModification();
-            }
-          }}
-          onRequestGeometry={refreshModelData}
-        />
-      </div>
     </div>
   );
 };

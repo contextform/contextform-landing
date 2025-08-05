@@ -46,7 +46,6 @@ export const useSocket = ({ userCredentials, selectedDocument }: UseSocketProps)
     originalState?: any;
     applied?: boolean;
   } | null>(null);
-  const [currentGeometry, setCurrentGeometry] = useState<any>(null);
 
   useEffect(() => {
     const newSocket = io('http://localhost:3000');
@@ -54,15 +53,17 @@ export const useSocket = ({ userCredentials, selectedDocument }: UseSocketProps)
     newSocket.on('connect', () => {
       setConnected(true);
       console.log('🔌 Connected to server');
+      console.log('👤 UserCredentials:', userCredentials ? 'present' : 'missing');
+      console.log('📄 SelectedDocument:', selectedDocument ? selectedDocument.name : 'missing');
       
       // Send user credentials and document info to server
+      console.log('📤 Emitting user_connected event...');
       newSocket.emit('user_connected', {
         userCredentials,
         selectedDocument
       });
       
-      // Request both features and geometry in one call (50% fewer API calls)
-      newSocket.emit('get_model_data');
+      // Features will be fetched automatically when user_connected is processed
     });
 
     newSocket.on('disconnect', () => {
@@ -134,23 +135,6 @@ export const useSocket = ({ userCredentials, selectedDocument }: UseSocketProps)
       }
     });
 
-    // Handle combined model data response
-    newSocket.on('model_data_update', (data: { features: Feature[]; geometry: any; timestamp: string }) => {
-      console.log('📦 Received combined model data update');
-      setFeatures(data.features);
-      if (data.geometry) {
-        console.log('🔄 Updating geometry from combined model data');
-        setCurrentGeometry(data.geometry);
-      }
-    });
-
-    newSocket.on('model_data_error', (error: string) => {
-      console.error('Model data error:', error);
-      setFeatures([]);
-      setCurrentGeometry(null);
-    });
-
-    // Legacy handler for backward compatibility
     newSocket.on('current_features', (newFeatures: Feature[]) => {
       setFeatures(newFeatures);
     });
@@ -194,18 +178,10 @@ export const useSocket = ({ userCredentials, selectedDocument }: UseSocketProps)
       intent: string;
       message: string;
       currentFeature: any;
-      currentGeometry?: any;
       originalState?: any;
       applied?: boolean;
     }) => {
       console.log('📨 Received modification_preview:', data.message);
-      console.log('📐 Preview has geometry:', data.currentGeometry ? 'YES' : 'NO');
-      
-      // Update geometry if included in preview
-      if (data.currentGeometry) {
-        console.log('🔄 Updating geometry from modification preview');
-        setCurrentGeometry(data.currentGeometry);
-      }
       
       setPendingModification({
         featureId: data.featureId,
@@ -229,17 +205,12 @@ export const useSocket = ({ userCredentials, selectedDocument }: UseSocketProps)
       setMessages(prev => [...prev, previewMessage]);
     });
 
-    newSocket.on('modification_success', (data: { modification: Modification; features: Feature[]; geometry?: any; message: string }) => {
+    newSocket.on('modification_success', (data: { modification: Modification; features: Feature[]; message: string }) => {
       setModificationProgress('');
       setModifications(prev => [...prev, data.modification]);
       setFeatures(data.features);
       setPendingModification(null); // Clear pending modification
       
-      // Update 3D geometry if included
-      if (data.geometry) {
-        console.log('🔄 Updating 3D geometry after modification success');
-        setCurrentGeometry(data.geometry);
-      }
       
       const successMessage: Message = {
         id: Date.now().toString(),
@@ -269,15 +240,10 @@ export const useSocket = ({ userCredentials, selectedDocument }: UseSocketProps)
     });
 
     // Listen for Onshape changes (from other sources)
-    newSocket.on('onshape_changed', (data: { event: any; features: Feature[]; geometry?: any; timestamp: string }) => {
+    newSocket.on('onshape_changed', (data: { event: any; features: Feature[]; timestamp: string }) => {
       console.log('📡 Onshape changed externally:', data.event);
       setFeatures(data.features);
       
-      // Update 3D geometry if included
-      if (data.geometry) {
-        console.log('🔄 Updating 3D geometry from change detection');
-        setCurrentGeometry(data.geometry);
-      }
       
       // Add a system message about the external change
       const systemMessage: Message = {
@@ -289,15 +255,6 @@ export const useSocket = ({ userCredentials, selectedDocument }: UseSocketProps)
       setMessages(prev => [...prev, systemMessage]);
     });
 
-    // Listen for 3D geometry updates
-    newSocket.on('3d_geometry_update', (geometry: any) => {
-      console.log('📐 Received 3D geometry update:', geometry);
-      setCurrentGeometry(geometry);
-    });
-
-    newSocket.on('3d_geometry_error', (error: string) => {
-      console.error('❌ 3D geometry error:', error);
-    });
 
     setSocket(newSocket);
 
@@ -330,13 +287,6 @@ export const useSocket = ({ userCredentials, selectedDocument }: UseSocketProps)
     }
   };
 
-  const refreshModelData = () => {
-    if (socket) {
-      console.log('🔄 Refreshing complete model data...');
-      socket.emit('get_model_data');
-    }
-  };
-
   const modifyParameter = (featureId: string, parameterId: string, newValue: string, intent?: string) => {
     if (socket) {
       socket.emit('modify_parameter', { featureId, parameterId, newValue, intent });
@@ -349,11 +299,6 @@ export const useSocket = ({ userCredentials, selectedDocument }: UseSocketProps)
     }
   };
 
-  const get3DGeometry = () => {
-    if (socket) {
-      socket.emit('get_3d_geometry');
-    }
-  };
 
   const approvePendingModification = () => {
     if (socket && pendingModification) {
@@ -393,13 +338,10 @@ export const useSocket = ({ userCredentials, selectedDocument }: UseSocketProps)
     modifications,
     modificationProgress,
     pendingModification,
-    currentGeometry,
     sendMessage,
     refreshFeatures,
-    refreshModelData,
     modifyParameter,
     getDesignMemory,
-    get3DGeometry,
     approvePendingModification,
     rejectPendingModification,
   };

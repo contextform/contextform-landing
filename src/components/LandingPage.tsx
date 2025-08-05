@@ -352,7 +352,7 @@ export default function LandingPage({ onConnect, onNavigateToAbout }: LandingPag
       </div>
       
       {/* Footer */}
-      <footer className="bg-gray-800 border-t border-gray-700">
+      <footer className="bg-black border-t border-gray-800">
         <div className="max-w-7xl mx-auto px-6 py-8">
           <div className="text-center">
             <p className="text-gray-400 text-sm">
