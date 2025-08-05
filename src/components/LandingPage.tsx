@@ -101,14 +101,14 @@ export default function LandingPage({ onConnect, onNavigateToAbout }: LandingPag
               <div className="max-w-4xl mx-auto space-y-8">
                 <div className="text-center">
                   <h1 className="text-6xl font-bold text-gray-900 tracking-tight mb-6">
-                    The Memory Layer for CAD
+                    AI that learns from your CAD work
                     <br />
                     <span className="bg-gradient-to-r from-green-400 to-blue-500 bg-clip-text text-transparent">
-                      AI that remembers how and why you design
+                      Generate new designs based on how you model
                     </span>
                   </h1>
                   <p className="text-xl text-gray-600 leading-relaxed">
-                    Contextform captures your entire design process—modeling steps, changes, parameters, and constraints—as structured memory. This enables AI to reason like an engineer, understanding geometry, constraints, and trade-offs to help you design manufacturing-ready parts faster.
+                    Contextform learns from your modeling patterns and automatically generates manufacturing-ready CAD designs in your style. Catch DFM issues early and iterate 10x faster.
                   </p>
                 </div>
                 
@@ -120,19 +120,19 @@ export default function LandingPage({ onConnect, onNavigateToAbout }: LandingPag
                       <div className="w-8 h-8 bg-gradient-to-r from-green-400 to-blue-500 rounded-full flex items-center justify-center">
                         <span className="text-white text-sm font-bold">1</span>
                       </div>
-                      <span className="text-gray-700">Contextform captures your design process as structured memory</span>
+                      <span className="text-gray-700">Model as you normally do - AI learns your patterns</span>
                     </div>
                     <div className="flex items-center space-x-3">
                       <div className="w-8 h-8 bg-gradient-to-r from-green-400 to-blue-500 rounded-full flex items-center justify-center">
                         <span className="text-white text-sm font-bold">2</span>
                       </div>
-                      <span className="text-gray-700">AI retrieves memory to reason like an engineer</span>
+                      <span className="text-gray-700">AI generates new designs based on your previous work</span>
                     </div>
                     <div className="flex items-center space-x-3">
                       <div className="w-8 h-8 bg-gradient-to-r from-green-400 to-blue-500 rounded-full flex items-center justify-center">
                         <span className="text-white text-sm font-bold">3</span>
                       </div>
-                      <span className="text-gray-700">Catch DFM issues early and regenerate CAD models through MCP</span>
+                      <span className="text-gray-700">Get manufacturing-ready parts with automatic DFM checks</span>
                     </div>
                   </div>
                 </div>
