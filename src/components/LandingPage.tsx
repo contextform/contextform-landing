@@ -96,11 +96,10 @@ export default function LandingPage({ onConnect, onNavigateToAbout }: LandingPag
         <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-white to-gray-100"></div>
         <div className="relative">
           <div className="max-w-7xl mx-auto px-6 py-12">
-            {/* Two-panel section */}
-            <div className="grid lg:grid-cols-10 gap-16 items-start mb-16">
-              {/* Left side content - spans 6 columns (60%) */}
-              <div className="lg:col-span-6 space-y-8">
-                <div>
+            {/* Main content section */}
+            <div className="mb-16">
+              <div className="max-w-4xl mx-auto space-y-8">
+                <div className="text-center">
                   <h1 className="text-6xl font-bold text-gray-900 tracking-tight mb-6">
                     Your AI Product Engineer
                     <br />
@@ -139,77 +138,6 @@ export default function LandingPage({ onConnect, onNavigateToAbout }: LandingPag
                 </div>
               </div>
 
-              {/* Right side form - spans 4 columns (40%) */}
-              <div className="lg:col-span-4">
-                <div className="bg-white rounded-2xl shadow-xl p-6 border border-gray-200">
-                  <div className="space-y-4">
-                    <div className="text-center space-y-2">
-                      <h2 className="text-2xl font-bold text-gray-900">
-                        Skip Manual Design Iteration
-                        <br />
-                        For Free
-                      </h2>
-                      <p className="text-gray-600">
-                        Early access available
-                      </p>
-                    </div>
-
-                    <form onSubmit={handleSubmit} className="space-y-3">
-                      {error && (
-                        <div className="bg-red-50 border border-red-200 rounded-xl p-4">
-                          <p className="text-red-700 text-sm">{error}</p>
-                        </div>
-                      )}
-                      
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">
-                          Name
-                        </label>
-                        <input
-                          type="text"
-                          required
-                          value={credentials.name}
-                          onChange={(e) => handleInputChange('name', e.target.value)}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors bg-white"
-                          placeholder="John Doe"
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">
-                          Email
-                        </label>
-                        <input
-                          type="email"
-                          required
-                          value={credentials.email}
-                          onChange={(e) => handleInputChange('email', e.target.value)}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors bg-white"
-                          placeholder="m@example.com"
-                        />
-                      </div>
-
-
-                      <button
-                        type="submit"
-                        disabled={loading}
-                        className="w-full bg-black text-white py-2 px-4 rounded-lg font-medium hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-500 disabled:opacity-50 transition-colors flex items-center justify-center"
-                      >
-                        {loading && (
-                          <div className="mr-3 h-5 w-5 animate-spin rounded-full border-b-2 border-white"></div>
-                        )}
-                        {loading ? 'Connecting...' : 'Get Started For Free'}
-                      </button>
-                    </form>
-                    
-                    <div className="text-center">
-                      <p className="text-sm text-gray-500">
-                        No credit card required • Cancel anytime
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
             
             {/* Video demo section - full width */}
