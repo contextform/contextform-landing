@@ -113,7 +113,7 @@ export default function LandingPage({ onConnect, onNavigateToAbout }: LandingPag
                 </div>
                 
                 {/* How it works */}
-                <div className="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+                <div className="mt-8">
                   <h3 className="text-lg font-semibold text-white mb-4">How it works:</h3>
                   <div className="space-y-4">
                     <div className="flex items-center space-x-3">
@@ -217,13 +217,13 @@ export default function LandingPage({ onConnect, onNavigateToAbout }: LandingPag
               </div>
               
               {/* CAD Memory Flow Diagram */}
-              <div className="bg-gray-800 rounded-2xl p-8 border border-gray-700 mb-8">
-                <div className="bg-black rounded-xl p-8 border border-gray-800">
+              <div className="mb-8">
+                <div className="p-8">
                   <div className="flex flex-col lg:flex-row items-center justify-between space-y-8 lg:space-y-0 lg:space-x-4">
                     
                     {/* Step 1: CAD Features */}
                     <div className="flex flex-col items-center text-center">
-                      <div className="w-16 h-16 bg-blue-100 rounded-xl flex items-center justify-center mb-4">
+                      <div className="w-16 h-16 bg-gray-800 rounded-xl flex items-center justify-center mb-4">
                         <span className="text-2xl">🔧</span>
                       </div>
                       <h5 className="font-semibold text-white mb-2">CAD Features</h5>
@@ -241,7 +241,7 @@ export default function LandingPage({ onConnect, onNavigateToAbout }: LandingPag
                     
                     {/* Step 2: Memory Layer */}
                     <div className="flex flex-col items-center text-center">
-                      <div className="w-16 h-16 bg-green-100 rounded-xl flex items-center justify-center mb-4">
+                      <div className="w-16 h-16 bg-gray-800 rounded-xl flex items-center justify-center mb-4">
                         <span className="text-2xl">🧠</span>
                       </div>
                       <h5 className="font-semibold text-white mb-2">Memory Layer</h5>
@@ -259,7 +259,7 @@ export default function LandingPage({ onConnect, onNavigateToAbout }: LandingPag
                     
                     {/* Step 3: AI Understanding */}
                     <div className="flex flex-col items-center text-center">
-                      <div className="w-16 h-16 bg-purple-100 rounded-xl flex items-center justify-center mb-4">
+                      <div className="w-16 h-16 bg-gray-800 rounded-xl flex items-center justify-center mb-4">
                         <span className="text-2xl">🤖</span>
                       </div>
                       <h5 className="font-semibold text-white mb-2">AI Understanding</h5>
@@ -277,7 +277,7 @@ export default function LandingPage({ onConnect, onNavigateToAbout }: LandingPag
                     
                     {/* Step 4: DFM Checks */}
                     <div className="flex flex-col items-center text-center">
-                      <div className="w-16 h-16 bg-orange-100 rounded-xl flex items-center justify-center mb-4">
+                      <div className="w-16 h-16 bg-gray-800 rounded-xl flex items-center justify-center mb-4">
                         <span className="text-2xl">🏭</span>
                       </div>
                       <h5 className="font-semibold text-white mb-2">DFM Checks</h5>
@@ -300,10 +300,10 @@ export default function LandingPage({ onConnect, onNavigateToAbout }: LandingPag
               </div>
               
               <div className="grid md:grid-cols-2 gap-8 mb-8">
-                <div className="bg-red-950 rounded-2xl p-6 border border-red-900">
+                <div className="bg-gray-900 rounded-2xl p-6 border border-gray-800">
                   <div className="text-center mb-4">
-                    <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                      <span className="text-red-600 text-xl">✗</span>
+                    <div className="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-3">
+                      <span className="text-red-400 text-xl">✗</span>
                     </div>
                     <h4 className="text-lg font-semibold text-white">Regular CAD AI</h4>
                   </div>
@@ -323,10 +323,10 @@ export default function LandingPage({ onConnect, onNavigateToAbout }: LandingPag
                   </div>
                 </div>
                 
-                <div className="bg-green-950 rounded-2xl p-6 border border-green-900">
+                <div className="bg-gray-900 rounded-2xl p-6 border border-gray-800">
                   <div className="text-center mb-4">
-                    <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                      <span className="text-green-600 text-xl">✓</span>
+                    <div className="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-3">
+                      <span className="text-green-400 text-xl">✓</span>
                     </div>
                     <h4 className="text-lg font-semibold text-white">contextform AI</h4>
                   </div>
