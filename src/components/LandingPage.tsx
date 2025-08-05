@@ -280,15 +280,22 @@ export default function LandingPage({ onConnect, onNavigateToAbout }: LandingPag
             {/* Video demo section - full width */}
             <div className="mb-16">
               <div className="rounded-2xl overflow-hidden shadow-xl bg-gray-900">
-                <div className="aspect-video flex items-center justify-center">
-                  <div className="text-center">
-                    <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4">
-                      <span className="text-gray-900 text-2xl">▶</span>
+                <video 
+                  className="w-full aspect-video"
+                  controls
+                  poster="/assets/contextform_v0_poster.jpg"
+                >
+                  <source src="/assets/contextform_v0.mp4" type="video/mp4" />
+                  <div className="aspect-video flex items-center justify-center">
+                    <div className="text-center">
+                      <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span className="text-gray-900 text-2xl">▶</span>
+                      </div>
+                      <p className="text-white text-lg font-medium">See how it eliminates design-manufacturing loops</p>
+                      <p className="text-gray-300 mt-1">Connected CAD and DFM checking working together</p>
                     </div>
-                    <p className="text-white text-lg font-medium">See how it eliminates design-manufacturing loops</p>
-                    <p className="text-gray-300 mt-1">Connected CAD and DFM checking working together</p>
                   </div>
-                </div>
+                </video>
               </div>
             </div>
             
