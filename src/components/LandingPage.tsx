@@ -66,9 +66,9 @@ export default function LandingPage({ onConnect, onNavigateToAbout }: LandingPag
   };
 
   return (
-    <div className="min-h-screen bg-gray-900">
+    <div className="min-h-screen bg-black">
       {/* Top Navigation Bar */}
-      <nav className="bg-gray-900 border-b border-gray-800 relative z-10">
+      <nav className="bg-black border-b border-gray-800 relative z-10">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
@@ -93,7 +93,7 @@ export default function LandingPage({ onConnect, onNavigateToAbout }: LandingPag
       </nav>
 
       <div className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black"></div>
         <div className="relative">
           <div className="max-w-7xl mx-auto px-6 py-12">
             {/* Main content section */}
@@ -218,7 +218,7 @@ export default function LandingPage({ onConnect, onNavigateToAbout }: LandingPag
               
               {/* CAD Memory Flow Diagram */}
               <div className="bg-gray-800 rounded-2xl p-8 border border-gray-700 mb-8">
-                <div className="bg-gray-900 rounded-xl p-8">
+                <div className="bg-black rounded-xl p-8 border border-gray-800">
                   <div className="flex flex-col lg:flex-row items-center justify-between space-y-8 lg:space-y-0 lg:space-x-4">
                     
                     {/* Step 1: CAD Features */}
