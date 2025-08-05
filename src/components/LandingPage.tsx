@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import React from 'react';
+import '../animations.css';
 
 interface LandingPageProps {
   onConnect?: (credentials: UserCredentials) => void;
@@ -18,6 +19,7 @@ export default function LandingPage({ onConnect, onNavigateToAbout }: LandingPag
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   // Check if user has saved credentials on component mount
   React.useEffect(() => {
@@ -74,7 +76,7 @@ export default function LandingPage({ onConnect, onNavigateToAbout }: LandingPag
             <div className="flex items-center">
               <button 
                 onClick={() => window.location.reload()}
-                className="text-2xl font-bold text-white hover:text-gray-300 transition-colors"
+                className="text-2xl font-bold text-white hover:text-gray-300 transition-all duration-300 hover:scale-105"
               >
                 contextform
               </button>
@@ -83,7 +85,7 @@ export default function LandingPage({ onConnect, onNavigateToAbout }: LandingPag
             <div className="flex items-center">
               <button 
                 onClick={() => onNavigateToAbout?.()}
-                className="text-gray-400 hover:text-white font-medium"
+                className="text-gray-400 hover:text-white font-medium transition-all duration-300 hover:scale-105"
               >
                 About
               </button>
@@ -100,36 +102,36 @@ export default function LandingPage({ onConnect, onNavigateToAbout }: LandingPag
             <div className="mb-16">
               <div className="max-w-4xl mx-auto space-y-8">
                 <div className="text-center">
-                  <h1 className="text-6xl font-bold text-white tracking-tight mb-6">
+                  <h1 className="text-6xl font-bold text-white tracking-tight mb-6 animate-fade-in-up">
                     AI that learns from your CAD work
                     <br />
-                    <span className="bg-gradient-to-r from-green-400 to-blue-500 bg-clip-text text-transparent">
+                    <span className="bg-gradient-to-r from-green-400 to-blue-500 bg-clip-text text-transparent animate-gradient">
                       Generate new designs based on how you model
                     </span>
                   </h1>
-                  <p className="text-xl text-gray-300 leading-relaxed">
+                  <p className="text-xl text-gray-300 leading-relaxed animate-fade-in-up" style={{animationDelay: '0.2s'}}>
                     Contextform is your CAD agent that learns from your modeling patterns. It works with you to iterate designs, catch DFM issues early, and adapt based on your changes - helping you reach manufacturing-ready parts 10x faster.
                   </p>
                 </div>
                 
                 {/* How it works */}
-                <div className="mt-8">
+                <div className="mt-8 animate-fade-in-up" style={{animationDelay: '0.4s'}}>
                   <h3 className="text-lg font-semibold text-white mb-4">How it works:</h3>
-                  <div className="space-y-4">
+                  <div className="space-y-4 stagger-children">
                     <div className="flex items-center space-x-3">
-                      <div className="w-8 h-8 bg-gradient-to-r from-green-400 to-blue-500 rounded-full flex items-center justify-center">
+                      <div className="w-8 h-8 bg-gradient-to-r from-green-400 to-blue-500 rounded-full flex items-center justify-center animate-pulse-hover transition-all duration-300">
                         <span className="text-white text-sm font-bold">1</span>
                       </div>
                       <span className="text-gray-300">Model as you normally do - AI learns your patterns</span>
                     </div>
                     <div className="flex items-center space-x-3">
-                      <div className="w-8 h-8 bg-gradient-to-r from-green-400 to-blue-500 rounded-full flex items-center justify-center">
+                      <div className="w-8 h-8 bg-gradient-to-r from-green-400 to-blue-500 rounded-full flex items-center justify-center animate-pulse-hover transition-all duration-300">
                         <span className="text-white text-sm font-bold">2</span>
                       </div>
                       <span className="text-gray-300">Your CAD agent iterates with you based on design changes</span>
                     </div>
                     <div className="flex items-center space-x-3">
-                      <div className="w-8 h-8 bg-gradient-to-r from-green-400 to-blue-500 rounded-full flex items-center justify-center">
+                      <div className="w-8 h-8 bg-gradient-to-r from-green-400 to-blue-500 rounded-full flex items-center justify-center animate-pulse-hover transition-all duration-300">
                         <span className="text-white text-sm font-bold">3</span>
                       </div>
                       <span className="text-gray-300">Get manufacturing-ready parts with automatic DFM checks</span>
@@ -141,10 +143,10 @@ export default function LandingPage({ onConnect, onNavigateToAbout }: LandingPag
             </div>
             
             {/* Video demo section - full width */}
-            <div className="mb-16">
-              <div className="rounded-2xl overflow-hidden shadow-xl bg-gray-900">
+            <div className="mb-16 animate-fade-in-up" style={{animationDelay: '0.6s'}}>
+              <div className="rounded-2xl overflow-hidden shadow-xl bg-gray-900 hover:shadow-2xl transition-shadow duration-500">
                 <video 
-                  className="w-full aspect-video"
+                  className="w-full aspect-video hover:scale-[1.02] transition-transform duration-500"
                   controls
                   poster="/assets/contextform_v0_poster.jpg"
                 >
@@ -163,8 +165,8 @@ export default function LandingPage({ onConnect, onNavigateToAbout }: LandingPag
             </div>
             
             {/* Memory explanation section */}
-            <div className="mb-16">
-              <div className="text-center mb-8">
+            <div className="mb-16 animate-fade-in-up" style={{animationDelay: '0.8s'}}>
+              <div className="text-center mb-8 animate-fade-in-up" style={{animationDelay: '1s'}}>
                 <h2 className="text-3xl font-bold text-white mb-6">
                   LLMs are getting smarter. Your CAD tools should too.
                   <br />
@@ -176,8 +178,8 @@ export default function LandingPage({ onConnect, onNavigateToAbout }: LandingPag
               
               <div className="max-w-6xl mx-auto mb-8">
                 <div className="space-y-6">
-                <div className="flex items-start space-x-4">
-                  <div className="w-8 h-8 bg-green-900 rounded-lg flex items-center justify-center flex-shrink-0">
+                <div className="flex items-start space-x-4 hover:translate-x-2 transition-transform duration-300 cursor-pointer">
+                  <div className="w-8 h-8 bg-green-900 rounded-lg flex items-center justify-center flex-shrink-0 animate-pulse-hover">
                     <span className="text-green-400 text-lg">🧠</span>
                   </div>
                   <div>
@@ -188,8 +190,8 @@ export default function LandingPage({ onConnect, onNavigateToAbout }: LandingPag
                   </div>
                 </div>
                 
-                <div className="flex items-start space-x-4">
-                  <div className="w-8 h-8 bg-green-900 rounded-lg flex items-center justify-center flex-shrink-0">
+                <div className="flex items-start space-x-4 hover:translate-x-2 transition-transform duration-300 cursor-pointer">
+                  <div className="w-8 h-8 bg-green-900 rounded-lg flex items-center justify-center flex-shrink-0 animate-pulse-hover">
                     <span className="text-green-400 text-lg">🔗</span>
                   </div>
                   <div>
@@ -202,8 +204,8 @@ export default function LandingPage({ onConnect, onNavigateToAbout }: LandingPag
                   </div>
                 </div>
                 
-                <div className="flex items-start space-x-4">
-                  <div className="w-8 h-8 bg-green-900 rounded-lg flex items-center justify-center flex-shrink-0">
+                <div className="flex items-start space-x-4 hover:translate-x-2 transition-transform duration-300 cursor-pointer">
+                  <div className="w-8 h-8 bg-green-900 rounded-lg flex items-center justify-center flex-shrink-0 animate-pulse-hover">
                     <span className="text-green-400 text-lg">🚀</span>
                   </div>
                   <div>
@@ -223,7 +225,7 @@ export default function LandingPage({ onConnect, onNavigateToAbout }: LandingPag
                     
                     {/* Step 1: CAD Features */}
                     <div className="flex flex-col items-center text-center">
-                      <div className="w-16 h-16 bg-gray-800 rounded-xl flex items-center justify-center mb-4">
+                      <div className="w-16 h-16 bg-gray-800 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
                         <span className="text-2xl">🔧</span>
                       </div>
                       <h5 className="font-semibold text-white mb-2">CAD Features</h5>
@@ -241,7 +243,7 @@ export default function LandingPage({ onConnect, onNavigateToAbout }: LandingPag
                     
                     {/* Step 2: Memory Layer */}
                     <div className="flex flex-col items-center text-center">
-                      <div className="w-16 h-16 bg-gray-800 rounded-xl flex items-center justify-center mb-4">
+                      <div className="w-16 h-16 bg-gray-800 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
                         <span className="text-2xl">🧠</span>
                       </div>
                       <h5 className="font-semibold text-white mb-2">Memory Layer</h5>
@@ -259,7 +261,7 @@ export default function LandingPage({ onConnect, onNavigateToAbout }: LandingPag
                     
                     {/* Step 3: AI Understanding */}
                     <div className="flex flex-col items-center text-center">
-                      <div className="w-16 h-16 bg-gray-800 rounded-xl flex items-center justify-center mb-4">
+                      <div className="w-16 h-16 bg-gray-800 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
                         <span className="text-2xl">🤖</span>
                       </div>
                       <h5 className="font-semibold text-white mb-2">AI Understanding</h5>
@@ -277,7 +279,7 @@ export default function LandingPage({ onConnect, onNavigateToAbout }: LandingPag
                     
                     {/* Step 4: DFM Checks */}
                     <div className="flex flex-col items-center text-center">
-                      <div className="w-16 h-16 bg-gray-800 rounded-xl flex items-center justify-center mb-4">
+                      <div className="w-16 h-16 bg-gray-800 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
                         <span className="text-2xl">🏭</span>
                       </div>
                       <h5 className="font-semibold text-white mb-2">DFM Checks</h5>
@@ -300,9 +302,9 @@ export default function LandingPage({ onConnect, onNavigateToAbout }: LandingPag
               </div>
               
               <div className="grid md:grid-cols-2 gap-8 mb-8">
-                <div className="bg-gray-900 rounded-2xl p-6 border border-gray-800">
+                <div className="bg-gray-900 rounded-2xl p-6 border border-gray-800 hover:border-gray-600 transition-all duration-300 hover:shadow-lg hover:shadow-green-500/10 group cursor-pointer">
                   <div className="text-center mb-4">
-                    <div className="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <div className="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:animate-pulse">
                       <span className="text-red-400 text-xl">✗</span>
                     </div>
                     <h4 className="text-lg font-semibold text-white">Regular CAD AI</h4>
@@ -323,9 +325,9 @@ export default function LandingPage({ onConnect, onNavigateToAbout }: LandingPag
                   </div>
                 </div>
                 
-                <div className="bg-gray-900 rounded-2xl p-6 border border-gray-800">
+                <div className="bg-gray-900 rounded-2xl p-6 border border-gray-800 hover:border-gray-600 transition-all duration-300 hover:shadow-lg hover:shadow-green-500/10 group cursor-pointer">
                   <div className="text-center mb-4">
-                    <div className="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <div className="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:animate-pulse">
                       <span className="text-green-400 text-xl">✓</span>
                     </div>
                     <h4 className="text-lg font-semibold text-white">contextform AI</h4>
