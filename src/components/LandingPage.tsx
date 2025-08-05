@@ -108,7 +108,7 @@ export default function LandingPage({ onConnect, onNavigateToAbout }: LandingPag
                     </span>
                   </h1>
                   <p className="text-xl text-gray-600 leading-relaxed">
-                    AI learns your design as you model, performs DFM checks, and works with you to iterate the design until it's manufacturing ready.
+                    AI learns your design as you model, performs DFM checks, and generates manufacturing-ready designs automatically.
                   </p>
                 </div>
                 
