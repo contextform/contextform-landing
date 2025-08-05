@@ -108,7 +108,7 @@ export default function LandingPage({ onConnect, onNavigateToAbout }: LandingPag
                     </span>
                   </h1>
                   <p className="text-xl text-gray-600 leading-relaxed">
-                    Contextform learns from your modeling patterns and automatically generates manufacturing-ready CAD designs in your style. Catch DFM issues early and iterate 10x faster.
+                    Contextform is your CAD agent that learns from your modeling patterns. It works with you to iterate designs, catch DFM issues early, and adapt based on your changes - helping you reach manufacturing-ready parts 10x faster.
                   </p>
                 </div>
                 
@@ -126,7 +126,7 @@ export default function LandingPage({ onConnect, onNavigateToAbout }: LandingPag
                       <div className="w-8 h-8 bg-gradient-to-r from-green-400 to-blue-500 rounded-full flex items-center justify-center">
                         <span className="text-white text-sm font-bold">2</span>
                       </div>
-                      <span className="text-gray-700">AI generates new designs based on your previous work</span>
+                      <span className="text-gray-700">Your CAD agent iterates with you based on design changes</span>
                     </div>
                     <div className="flex items-center space-x-3">
                       <div className="w-8 h-8 bg-gradient-to-r from-green-400 to-blue-500 rounded-full flex items-center justify-center">
