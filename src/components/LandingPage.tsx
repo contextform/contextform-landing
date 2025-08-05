@@ -9,18 +9,12 @@ interface LandingPageProps {
 interface UserCredentials {
   email: string;
   name: string;
-  platform: string;
-  accessKey: string;
-  secretKey: string;
 }
 
 export default function LandingPage({ onConnect, onNavigateToAbout }: LandingPageProps) {
   const [credentials, setCredentials] = useState<UserCredentials>({
     email: '',
-    name: '',
-    platform: 'onshape',
-    accessKey: '',
-    secretKey: ''
+    name: ''
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -155,9 +149,8 @@ export default function LandingPage({ onConnect, onNavigateToAbout }: LandingPag
                         <br />
                         For Free
                       </h2>
-                      <p className="text-gray-600 flex items-center justify-center space-x-2">
-                        <img src="/onshape-logo.png" alt="Onshape" className="h-6 w-auto" />
-                        <span>available now</span>
+                      <p className="text-gray-600">
+                        Early access available
                       </p>
                     </div>
 
@@ -170,20 +163,16 @@ export default function LandingPage({ onConnect, onNavigateToAbout }: LandingPag
                       
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">
-                          CAD Platform
+                          Name
                         </label>
-                        <select
-                          value={credentials.platform}
-                          onChange={(e) => handleInputChange('platform', e.target.value)}
+                        <input
+                          type="text"
+                          required
+                          value={credentials.name}
+                          onChange={(e) => handleInputChange('name', e.target.value)}
                           className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors bg-white"
-                        >
-                          <option value="onshape">Onshape</option>
-                          <option value="solidworks" disabled className="text-gray-400">SolidWorks (Coming Soon)</option>
-                          <option value="fusion360" disabled className="text-gray-400">Fusion 360 (Coming Soon)</option>
-                          <option value="inventor" disabled className="text-gray-400">Inventor (Coming Soon)</option>
-                          <option value="nx" disabled className="text-gray-400">NX (Coming Soon)</option>
-                          <option value="rhinoceros" disabled className="text-gray-400">Rhinoceros (Coming Soon)</option>
-                        </select>
+                          placeholder="John Doe"
+                        />
                       </div>
 
                       <div>
@@ -200,49 +189,10 @@ export default function LandingPage({ onConnect, onNavigateToAbout }: LandingPag
                         />
                       </div>
 
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">
-                          {credentials.platform === 'onshape' ? 'Onshape Access Key' : 
-                           credentials.platform === 'solidworks' ? 'SolidWorks API Key' :
-                           credentials.platform === 'fusion360' ? 'Fusion 360 API Key' :
-                           credentials.platform === 'inventor' ? 'Inventor API Key' :
-                           credentials.platform === 'rhinoceros' ? 'Rhinoceros API Key' :
-                           'NX API Key'}
-                        </label>
-                        <input
-                          type="text"
-                          required
-                          value={credentials.accessKey}
-                          onChange={(e) => handleInputChange('accessKey', e.target.value)}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors bg-white"
-                          placeholder={credentials.platform === 'onshape' ? 'Your access key' : 'Coming soon...'}
-                          disabled={credentials.platform !== 'onshape'}
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">
-                          {credentials.platform === 'onshape' ? 'Onshape Secret Key' :
-                           credentials.platform === 'solidworks' ? 'SolidWorks Secret Key' :
-                           credentials.platform === 'fusion360' ? 'Fusion 360 Secret Key' :
-                           credentials.platform === 'inventor' ? 'Inventor Secret Key' :
-                           credentials.platform === 'rhinoceros' ? 'Rhinoceros Secret Key' :
-                           'NX Secret Key'}
-                        </label>
-                        <input
-                          type="password"
-                          required
-                          value={credentials.secretKey}
-                          onChange={(e) => handleInputChange('secretKey', e.target.value)}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors bg-white"
-                          placeholder={credentials.platform === 'onshape' ? 'Your secret key' : 'Coming soon...'}
-                          disabled={credentials.platform !== 'onshape'}
-                        />
-                      </div>
 
                       <button
                         type="submit"
-                        disabled={loading || credentials.platform !== 'onshape'}
+                        disabled={loading}
                         className="w-full bg-black text-white py-2 px-4 rounded-lg font-medium hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-500 disabled:opacity-50 transition-colors flex items-center justify-center"
                       >
                         {loading && (
@@ -254,22 +204,7 @@ export default function LandingPage({ onConnect, onNavigateToAbout }: LandingPag
                     
                     <div className="text-center">
                       <p className="text-sm text-gray-500">
-                        {credentials.platform === 'onshape' ? (
-                          <>
-                            Need API keys?{' '}
-                            <a href="https://dev-portal.onshape.com/" target="_blank" className="text-blue-600 hover:text-blue-700 font-medium">
-                              Get them from Onshape →
-                            </a>
-                          </>
-                        ) : (
-                          <span className="text-gray-400">
-                            {credentials.platform === 'solidworks' ? 'SolidWorks' : 
-                             credentials.platform === 'fusion360' ? 'Fusion 360' :
-                             credentials.platform === 'inventor' ? 'Inventor' :
-                             credentials.platform === 'rhinoceros' ? 'Rhinoceros' :
-                             'NX'} integration coming soon
-                          </span>
-                        )}
+                        No credit card required • Cancel anytime
                       </p>
                     </div>
                   </div>
