@@ -66,15 +66,15 @@ export default function LandingPage({ onConnect, onNavigateToAbout }: LandingPag
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-gray-900">
       {/* Top Navigation Bar */}
-      <nav className="bg-white border-b border-gray-200 relative z-10">
+      <nav className="bg-gray-900 border-b border-gray-800 relative z-10">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
               <button 
                 onClick={() => window.location.reload()}
-                className="text-2xl font-bold text-gray-900 hover:text-gray-700 transition-colors"
+                className="text-2xl font-bold text-white hover:text-gray-300 transition-colors"
               >
                 contextform
               </button>
@@ -83,7 +83,7 @@ export default function LandingPage({ onConnect, onNavigateToAbout }: LandingPag
             <div className="flex items-center">
               <button 
                 onClick={() => onNavigateToAbout?.()}
-                className="text-gray-600 hover:text-gray-900 font-medium"
+                className="text-gray-400 hover:text-white font-medium"
               >
                 About
               </button>
@@ -93,46 +93,46 @@ export default function LandingPage({ onConnect, onNavigateToAbout }: LandingPag
       </nav>
 
       <div className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-white to-gray-100"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900"></div>
         <div className="relative">
           <div className="max-w-7xl mx-auto px-6 py-12">
             {/* Main content section */}
             <div className="mb-16">
               <div className="max-w-4xl mx-auto space-y-8">
                 <div className="text-center">
-                  <h1 className="text-6xl font-bold text-gray-900 tracking-tight mb-6">
+                  <h1 className="text-6xl font-bold text-white tracking-tight mb-6">
                     AI that learns from your CAD work
                     <br />
                     <span className="bg-gradient-to-r from-green-400 to-blue-500 bg-clip-text text-transparent">
                       Generate new designs based on how you model
                     </span>
                   </h1>
-                  <p className="text-xl text-gray-600 leading-relaxed">
+                  <p className="text-xl text-gray-300 leading-relaxed">
                     Contextform is your CAD agent that learns from your modeling patterns. It works with you to iterate designs, catch DFM issues early, and adapt based on your changes - helping you reach manufacturing-ready parts 10x faster.
                   </p>
                 </div>
                 
                 {/* How it works */}
-                <div className="bg-gray-50 rounded-2xl p-6 border border-gray-200">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-4">How it works:</h3>
+                <div className="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+                  <h3 className="text-lg font-semibold text-white mb-4">How it works:</h3>
                   <div className="space-y-4">
                     <div className="flex items-center space-x-3">
                       <div className="w-8 h-8 bg-gradient-to-r from-green-400 to-blue-500 rounded-full flex items-center justify-center">
                         <span className="text-white text-sm font-bold">1</span>
                       </div>
-                      <span className="text-gray-700">Model as you normally do - AI learns your patterns</span>
+                      <span className="text-gray-300">Model as you normally do - AI learns your patterns</span>
                     </div>
                     <div className="flex items-center space-x-3">
                       <div className="w-8 h-8 bg-gradient-to-r from-green-400 to-blue-500 rounded-full flex items-center justify-center">
                         <span className="text-white text-sm font-bold">2</span>
                       </div>
-                      <span className="text-gray-700">Your CAD agent iterates with you based on design changes</span>
+                      <span className="text-gray-300">Your CAD agent iterates with you based on design changes</span>
                     </div>
                     <div className="flex items-center space-x-3">
                       <div className="w-8 h-8 bg-gradient-to-r from-green-400 to-blue-500 rounded-full flex items-center justify-center">
                         <span className="text-white text-sm font-bold">3</span>
                       </div>
-                      <span className="text-gray-700">Get manufacturing-ready parts with automatic DFM checks</span>
+                      <span className="text-gray-300">Get manufacturing-ready parts with automatic DFM checks</span>
                     </div>
                   </div>
                 </div>
@@ -165,7 +165,7 @@ export default function LandingPage({ onConnect, onNavigateToAbout }: LandingPag
             {/* Memory explanation section */}
             <div className="mb-16">
               <div className="text-center mb-8">
-                <h2 className="text-3xl font-bold text-gray-900 mb-6">
+                <h2 className="text-3xl font-bold text-white mb-6">
                   LLMs are getting smarter. Your CAD tools should too.
                   <br />
                   <span className="bg-gradient-to-r from-green-400 to-blue-500 bg-clip-text text-transparent">
@@ -177,24 +177,24 @@ export default function LandingPage({ onConnect, onNavigateToAbout }: LandingPag
               <div className="max-w-6xl mx-auto mb-8">
                 <div className="space-y-6">
                 <div className="flex items-start space-x-4">
-                  <div className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <span className="text-green-600 text-lg">🧠</span>
+                  <div className="w-8 h-8 bg-green-900 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <span className="text-green-400 text-lg">🧠</span>
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-1">AI that remembers your design</h3>
-                    <p className="text-gray-600">
+                    <h3 className="text-lg font-semibold text-white mb-1">AI that remembers your design</h3>
+                    <p className="text-gray-400">
                       Understands how you built your 3D model and why so it can help you improve it
                     </p>
                   </div>
                 </div>
                 
                 <div className="flex items-start space-x-4">
-                  <div className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <span className="text-green-600 text-lg">🔗</span>
+                  <div className="w-8 h-8 bg-green-900 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <span className="text-green-400 text-lg">🔗</span>
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-1">All your tools connected</h3>
-                    <p className="text-gray-600">
+                    <h3 className="text-lg font-semibold text-white mb-1">All your tools connected</h3>
+                    <p className="text-gray-400">
                       Visual canvas connects CAD and manufacturing workflows.
                       <br />
                       AI automatically identifies DFM issues and suggests manufacturing-ready solutions
@@ -203,12 +203,12 @@ export default function LandingPage({ onConnect, onNavigateToAbout }: LandingPag
                 </div>
                 
                 <div className="flex items-start space-x-4">
-                  <div className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <span className="text-green-600 text-lg">🚀</span>
+                  <div className="w-8 h-8 bg-green-900 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <span className="text-green-400 text-lg">🚀</span>
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-1">Build hardware 10x faster</h3>
-                    <p className="text-gray-600">
+                    <h3 className="text-lg font-semibold text-white mb-1">Build hardware 10x faster</h3>
+                    <p className="text-gray-400">
                       Skip endless design-manufacturing loops. Get from idea to production-ready parts faster
                     </p>
                   </div>
@@ -217,8 +217,8 @@ export default function LandingPage({ onConnect, onNavigateToAbout }: LandingPag
               </div>
               
               {/* CAD Memory Flow Diagram */}
-              <div className="bg-gray-50 rounded-2xl p-8 border border-gray-200 mb-8">
-                <div className="bg-white rounded-xl p-8">
+              <div className="bg-gray-800 rounded-2xl p-8 border border-gray-700 mb-8">
+                <div className="bg-gray-900 rounded-xl p-8">
                   <div className="flex flex-col lg:flex-row items-center justify-between space-y-8 lg:space-y-0 lg:space-x-4">
                     
                     {/* Step 1: CAD Features */}
@@ -226,8 +226,8 @@ export default function LandingPage({ onConnect, onNavigateToAbout }: LandingPag
                       <div className="w-16 h-16 bg-blue-100 rounded-xl flex items-center justify-center mb-4">
                         <span className="text-2xl">🔧</span>
                       </div>
-                      <h5 className="font-semibold text-gray-900 mb-2">CAD Features</h5>
-                      <p className="text-sm text-gray-600 max-w-32">
+                      <h5 className="font-semibold text-white mb-2">CAD Features</h5>
+                      <p className="text-sm text-gray-400 max-w-32">
                         Sketches, extrudes, fillets, constraints
                       </p>
                     </div>
@@ -244,8 +244,8 @@ export default function LandingPage({ onConnect, onNavigateToAbout }: LandingPag
                       <div className="w-16 h-16 bg-green-100 rounded-xl flex items-center justify-center mb-4">
                         <span className="text-2xl">🧠</span>
                       </div>
-                      <h5 className="font-semibold text-gray-900 mb-2">Memory Layer</h5>
-                      <p className="text-sm text-gray-600 max-w-32">
+                      <h5 className="font-semibold text-white mb-2">Memory Layer</h5>
+                      <p className="text-sm text-gray-400 max-w-32">
                         Captures intent, parameters, relationships
                       </p>
                     </div>
@@ -262,8 +262,8 @@ export default function LandingPage({ onConnect, onNavigateToAbout }: LandingPag
                       <div className="w-16 h-16 bg-purple-100 rounded-xl flex items-center justify-center mb-4">
                         <span className="text-2xl">🤖</span>
                       </div>
-                      <h5 className="font-semibold text-gray-900 mb-2">AI Understanding</h5>
-                      <p className="text-sm text-gray-600 max-w-32">
+                      <h5 className="font-semibold text-white mb-2">AI Understanding</h5>
+                      <p className="text-sm text-gray-400 max-w-32">
                         Contextual reasoning and suggestions
                       </p>
                     </div>
@@ -280,8 +280,8 @@ export default function LandingPage({ onConnect, onNavigateToAbout }: LandingPag
                       <div className="w-16 h-16 bg-orange-100 rounded-xl flex items-center justify-center mb-4">
                         <span className="text-2xl">🏭</span>
                       </div>
-                      <h5 className="font-semibold text-gray-900 mb-2">DFM Checks</h5>
-                      <p className="text-sm text-gray-600 max-w-32">
+                      <h5 className="font-semibold text-white mb-2">DFM Checks</h5>
+                      <p className="text-sm text-gray-400 max-w-32">
                         Manufacturing validation and design optimization
                       </p>
                     </div>
@@ -289,8 +289,8 @@ export default function LandingPage({ onConnect, onNavigateToAbout }: LandingPag
                   </div>
                   
                   {/* Bottom explanation */}
-                  <div className="mt-8 pt-6 border-t border-gray-200">
-                    <p className="text-center text-sm text-gray-600">
+                  <div className="mt-8 pt-6 border-t border-gray-700">
+                    <p className="text-center text-sm text-gray-400">
                       <span className="font-medium">Unlike traditional CAD tools</span>, contextform captures the "why" behind every modeling decision,
                       <br />
                       enabling AI to provide contextual suggestions and automate DFM validation based on your design intent.
@@ -300,48 +300,48 @@ export default function LandingPage({ onConnect, onNavigateToAbout }: LandingPag
               </div>
               
               <div className="grid md:grid-cols-2 gap-8 mb-8">
-                <div className="bg-red-50 rounded-2xl p-6 border border-red-200">
+                <div className="bg-red-950 rounded-2xl p-6 border border-red-900">
                   <div className="text-center mb-4">
                     <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-3">
                       <span className="text-red-600 text-xl">✗</span>
                     </div>
-                    <h4 className="text-lg font-semibold text-gray-900">Regular CAD AI</h4>
+                    <h4 className="text-lg font-semibold text-white">Regular CAD AI</h4>
                   </div>
                   <div className="space-y-3">
                     <div className="flex items-start space-x-3">
                       <span className="text-red-500 mt-1">•</span>
-                      <span className="text-gray-700">Sees shapes, not intent</span>
+                      <span className="text-gray-300">Sees shapes, not intent</span>
                     </div>
                     <div className="flex items-start space-x-3">
                       <span className="text-red-500 mt-1">•</span>
-                      <span className="text-gray-700">Can't understand your design choices</span>
+                      <span className="text-gray-300">Can't understand your design choices</span>
                     </div>
                     <div className="flex items-start space-x-3">
                       <span className="text-red-500 mt-1">•</span>
-                      <span className="text-gray-700">Manufacturing issues found too late</span>
+                      <span className="text-gray-300">Manufacturing issues found too late</span>
                     </div>
                   </div>
                 </div>
                 
-                <div className="bg-green-50 rounded-2xl p-6 border border-green-200">
+                <div className="bg-green-950 rounded-2xl p-6 border border-green-900">
                   <div className="text-center mb-4">
                     <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
                       <span className="text-green-600 text-xl">✓</span>
                     </div>
-                    <h4 className="text-lg font-semibold text-gray-900">contextform AI</h4>
+                    <h4 className="text-lg font-semibold text-white">contextform AI</h4>
                   </div>
                   <div className="space-y-3">
                     <div className="flex items-start space-x-3">
                       <span className="text-green-500 mt-1">•</span>
-                      <span className="text-gray-700">Remembers why you made each feature</span>
+                      <span className="text-gray-300">Remembers why you made each feature</span>
                     </div>
                     <div className="flex items-start space-x-3">
                       <span className="text-green-500 mt-1">•</span>
-                      <span className="text-gray-700">Suggests improvements based on your goals</span>
+                      <span className="text-gray-300">Suggests improvements based on your goals</span>
                     </div>
                     <div className="flex items-start space-x-3">
                       <span className="text-green-500 mt-1">•</span>
-                      <span className="text-gray-700">Identifies DFM issues early in design</span>
+                      <span className="text-gray-300">Identifies DFM issues early in design</span>
                     </div>
                   </div>
                 </div>
@@ -352,10 +352,10 @@ export default function LandingPage({ onConnect, onNavigateToAbout }: LandingPag
       </div>
       
       {/* Footer */}
-      <footer className="bg-gray-50 border-t border-gray-200">
+      <footer className="bg-gray-800 border-t border-gray-700">
         <div className="max-w-7xl mx-auto px-6 py-8">
           <div className="text-center">
-            <p className="text-gray-600 text-sm">
+            <p className="text-gray-400 text-sm">
               © 2025 contextform | All rights reserved.
             </p>
           </div>
