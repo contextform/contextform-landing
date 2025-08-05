@@ -132,7 +132,7 @@ export default function LandingPage({ onConnect, onNavigateToAbout }: LandingPag
                       <div className="w-8 h-8 bg-gradient-to-r from-green-400 to-blue-500 rounded-full flex items-center justify-center">
                         <span className="text-white text-sm font-bold">3</span>
                       </div>
-                      <span className="text-gray-700">AI performs DFM checks and helps iterate for manufacturing readiness</span>
+                      <span className="text-gray-700">AI performs DFM checks and regenerates CAD models for manufacturing readiness</span>
                     </div>
                   </div>
                 </div>
