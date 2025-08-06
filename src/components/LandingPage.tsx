@@ -102,22 +102,22 @@ export default function LandingPage({ onConnect, onNavigateToAbout }: LandingPag
             <div className="mb-16">
               <div className="max-w-4xl mx-auto space-y-8">
                 <div className="text-center">
-                  <h1 className="text-6xl font-bold text-white tracking-tight mb-6 animate-fade-in-up">
+                  <h1 className="text-6xl font-bold text-white tracking-tight mb-6">
                     AI that learns from your CAD work
                     <br />
                     <span className="bg-gradient-to-r from-green-400 to-blue-500 bg-clip-text text-transparent animate-gradient">
                       Generate new designs based on how you model
                     </span>
                   </h1>
-                  <p className="text-xl text-gray-300 leading-relaxed animate-fade-in-up" style={{animationDelay: '0.2s'}}>
+                  <p className="text-xl text-gray-300 leading-relaxed">
                     Contextform is your CAD agent that learns from your modeling patterns. It works with you to iterate designs, catch DFM issues early, and adapt based on your changes - helping you reach manufacturing-ready parts 10x faster.
                   </p>
                 </div>
                 
                 {/* How it works */}
-                <div className="mt-8 animate-fade-in-up" style={{animationDelay: '0.4s'}}>
+                <div className="mt-8">
                   <h3 className="text-lg font-semibold text-white mb-4">How it works:</h3>
-                  <div className="space-y-4 stagger-children">
+                  <div className="space-y-4">
                     <div className="flex items-center space-x-3">
                       <div className="w-8 h-8 bg-gradient-to-r from-green-400 to-blue-500 rounded-full flex items-center justify-center animate-pulse-hover transition-all duration-300">
                         <span className="text-white text-sm font-bold">1</span>
@@ -143,7 +143,7 @@ export default function LandingPage({ onConnect, onNavigateToAbout }: LandingPag
             </div>
             
             {/* Video demo section - full width */}
-            <div className="mb-16 animate-fade-in-up" style={{animationDelay: '0.6s'}}>
+            <div className="mb-16">
               <div className="rounded-2xl overflow-hidden shadow-xl bg-gray-900 hover:shadow-2xl transition-shadow duration-500">
                 <video 
                   className="w-full aspect-video hover:scale-[1.02] transition-transform duration-500"
@@ -165,8 +165,8 @@ export default function LandingPage({ onConnect, onNavigateToAbout }: LandingPag
             </div>
             
             {/* Memory explanation section */}
-            <div className="mb-16 animate-fade-in-up" style={{animationDelay: '0.8s'}}>
-              <div className="text-center mb-8 animate-fade-in-up" style={{animationDelay: '1s'}}>
+            <div className="mb-16">
+              <div className="text-center mb-8">
                 <h2 className="text-3xl font-bold text-white mb-6">
                   LLMs are getting smarter. Your CAD tools should too.
                   <br />
