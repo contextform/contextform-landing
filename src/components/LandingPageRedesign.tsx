@@ -87,7 +87,7 @@ export default function LandingPageRedesign({ onNavigateToAbout }: LandingPagePr
                 onClick={() => setShowModal(true)}
                 className="px-6 py-[1.125rem] font-medium hover:scale-105 transition-all"
               >
-                Get a Demo
+                Book a Demo
               </Button>
             </div>
           </div>
@@ -129,7 +129,7 @@ export default function LandingPageRedesign({ onNavigateToAbout }: LandingPagePr
                 size="lg"
                 className="text-xl px-10 py-7 hover:scale-105 transition-all"
               >
-                Get a Demo
+                Book a Demo
               </Button>
               <Button 
                 variant="secondary"
@@ -240,10 +240,6 @@ export default function LandingPageRedesign({ onNavigateToAbout }: LandingPagePr
       {/* Video Demo Section */}
       <section id="demo" className="py-20 bg-card">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-12">
-            <h2 className="font-sans text-4xl text-foreground mb-4 font-semibold">See it in action</h2>
-            <p className="text-xl text-muted-foreground">Watch how contextform transforms your CAD workflow</p>
-          </div>
           
           <div className="relative rounded-[calc(var(--radius)+1rem)] overflow-hidden shadow-lg bg-muted/20">
             <div className="aspect-video flex items-center justify-center">
@@ -257,123 +253,69 @@ export default function LandingPageRedesign({ onNavigateToAbout }: LandingPagePr
             </div>
           </div>
 
-          {/* Key Stats */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
-            <div className="text-center">
-              <div className="text-5xl font-bold text-foreground">10x</div>
-              <div className="text-muted-foreground mt-2">Faster to production</div>
-            </div>
-            <div className="text-center">
-              <div className="text-5xl font-bold text-foreground">85%</div>
-              <div className="text-muted-foreground mt-2">Fewer DFM iterations</div>
-            </div>
-            <div className="text-center">
-              <div className="text-5xl font-bold text-foreground">3min</div>
-              <div className="text-muted-foreground mt-2">Average setup time</div>
-            </div>
-          </div>
         </div>
       </section>
 
       {/* Features Section */}
-      <section id="features" className="py-20 bg-muted/30">
+      <section id="features" className="py-20 bg-background">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-foreground mb-4">
-              Built for modern engineering teams
+            <div className="text-sm font-medium text-muted-foreground mb-4 tracking-wider">FEATURES</div>
+            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+              Engineered for Speed,
+              <br />
+              Built for Precision
             </h2>
-            <p className="text-xl text-muted-foreground">
-              Powerful features that integrate seamlessly with your existing CAD tools
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Our powerful AI features are tailored to enhance every aspect of your CAD design process.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Feature 1 */}
-            <Card className="hover:shadow-lg transition-shadow">
-              <CardContent className="p-8">
-                <div className="w-14 h-14 bg-primary/20 rounded-[var(--radius)] flex items-center justify-center mb-6">
-                  <span className="text-2xl">🧠</span>
-                </div>
-                <h3 className="font-sans text-xl font-semibold text-foreground mb-3">
-                  Learns Your Patterns
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {/* CAD Tools Integration */}
+            <Card className="hover:shadow-lg transition-shadow border border-muted-foreground/20">
+              <CardContent className="p-8 relative">
+                <h3 className="text-xl font-semibold text-foreground mb-3">
+                  CAD Tools Integration
                 </h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  AI that understands your design methodology and adapts to your specific engineering requirements.
+                <p className="text-muted-foreground leading-relaxed mb-8">
+                  Works seamlessly with your familiar CAD tools: Onshape, SolidWorks, Fusion 360, NX, FreeCAD, Rhino, and other major CAD platforms.
                 </p>
               </CardContent>
             </Card>
 
-            {/* Feature 2 */}
-            <Card className="hover:shadow-lg transition-shadow">
-              <CardContent className="p-8">
-                <div className="w-14 h-14 bg-primary/20 rounded-[var(--radius)] flex items-center justify-center mb-6">
-                  <span className="text-2xl">🏭</span>
-                </div>
+            {/* Instant DFM Checks */}
+            <Card className="hover:shadow-lg transition-shadow border border-muted-foreground/20">
+              <CardContent className="p-8 relative">
                 <h3 className="text-xl font-semibold text-foreground mb-3">
-                  Real-time DFM Checks
+                  Instant DFM Checks
                 </h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  Catch manufacturing issues before they become expensive problems. Get instant feedback on design decisions.
+                <p className="text-muted-foreground leading-relaxed mb-8">
+                  Real-time manufacturing checks leveraging contextform CAD agent to iterate and regenerate models fast, preventing costly issues early.
                 </p>
               </CardContent>
             </Card>
 
-            {/* Feature 3 */}
-            <Card className="hover:shadow-lg transition-shadow">
-              <CardContent className="p-8">
-                <div className="w-14 h-14 bg-primary/20 rounded-[var(--radius)] flex items-center justify-center mb-6">
-                  <span className="text-2xl">🔄</span>
-                </div>
+            {/* Iterative CAD Memory */}
+            <Card className="hover:shadow-lg transition-shadow border border-muted-foreground/20">
+              <CardContent className="p-8 relative">
                 <h3 className="text-xl font-semibold text-foreground mb-3">
-                  Iterative Design Memory
+                  Iterative CAD Memory
                 </h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  Remembers why you made changes and suggests improvements based on past design decisions.
+                <p className="text-muted-foreground leading-relaxed mb-8">
+                  AI that remembers design decisions, learns from modeling patterns, tracks design intent, and captures modeling steps over time.
                 </p>
               </CardContent>
             </Card>
 
-            {/* Feature 4 */}
-            <Card className="hover:shadow-lg transition-shadow">
-              <CardContent className="p-8">
-                <div className="w-14 h-14 bg-primary/20 rounded-[var(--radius)] flex items-center justify-center mb-6">
-                  <span className="text-2xl">⚡</span>
-                </div>
+            {/* LLM Agent Connect */}
+            <Card className="hover:shadow-lg transition-shadow border border-muted-foreground/20">
+              <CardContent className="p-8 relative">
                 <h3 className="text-xl font-semibold text-foreground mb-3">
-                  Natural Language Control
+                  LLM Agent Connect
                 </h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  Simply describe what you want to change. No complex commands or menu navigation required.
-                </p>
-              </CardContent>
-            </Card>
-
-            {/* Feature 5 */}
-            <Card className="hover:shadow-lg transition-shadow">
-              <CardContent className="p-8">
-                <div className="w-14 h-14 bg-primary/20 rounded-[var(--radius)] flex items-center justify-center mb-6">
-                  <span className="text-2xl">🔗</span>
-                </div>
-                <h3 className="text-xl font-semibold text-foreground mb-3">
-                  CAD Tool Integration
-                </h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  Works with Onshape, SolidWorks, Fusion 360, and more. Seamless integration with your existing workflow.
-                </p>
-              </CardContent>
-            </Card>
-
-            {/* Feature 6 */}
-            <Card className="hover:shadow-lg transition-shadow">
-              <CardContent className="p-8">
-                <div className="w-14 h-14 bg-primary/20 rounded-[var(--radius)] flex items-center justify-center mb-6">
-                  <span className="text-2xl">📊</span>
-                </div>
-                <h3 className="text-xl font-semibold text-foreground mb-3">
-                  Design Analytics
-                </h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  Track design iterations, identify bottlenecks, and optimize your engineering process with data insights.
+                <p className="text-muted-foreground leading-relaxed mb-8">
+                  Integrates with Claude Code, Cursor CLI, and OpenAI Codex to enable natural language CAD interactions.
                 </p>
               </CardContent>
             </Card>
@@ -384,16 +326,41 @@ export default function LandingPageRedesign({ onNavigateToAbout }: LandingPagePr
 
 
 
+
+      {/* Footer */}
+      <footer className="bg-card border-t border-border py-12">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
+            <div className="mb-8 md:mb-0">
+              <div className="text-2xl font-bold text-foreground mb-2">contextform</div>
+              <p className="text-sm text-muted-foreground max-w-md">
+                AI Agent for CAD models that accelerates the design-to-manufacturing process.
+              </p>
+            </div>
+            <div className="flex flex-col items-start md:items-end">
+              <p className="text-sm text-muted-foreground">
+                Built by <a href="https://www.linkedin.com/in/josephwuu/" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors underline">Joe</a> and <a href="https://www.linkedin.com/in/k-yr-k/" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors underline">Kenny</a>. Please reach out!
+              </p>
+            </div>
+          </div>
+          <div className="mt-8 pt-8 border-t border-border text-center text-sm text-muted-foreground">
+            © 2025 contextform. All rights reserved.
+          </div>
+        </div>
+      </footer>
 
       {/* Demo Modal */}
       {showModal && (
         <div className="fixed inset-0 bg-foreground/50 backdrop-blur-sm z-50 flex items-center justify-center p-6">
           <div className="bg-card rounded-2xl max-w-md w-full p-8 shadow-2xl">
             <div className="flex justify-between items-start mb-6">
-              <h3 className="text-2xl font-bold text-foreground">Book a demo</h3>
+              <div>
+                <h3 className="text-2xl font-bold text-foreground mb-2">We'd love to work with you</h3>
+                <p className="text-sm text-muted-foreground">Let us help improve your CAD's tedious processes and make your design workflow more efficient.</p>
+              </div>
               <button 
                 onClick={() => setShowModal(false)}
-                className="text-muted-foreground hover:text-foreground"
+                className="text-muted-foreground hover:text-foreground ml-4 flex-shrink-0"
               >
                 ✕
               </button>
@@ -418,7 +385,7 @@ export default function LandingPageRedesign({ onNavigateToAbout }: LandingPagePr
                 type="submit"
                 className="w-full py-3 font-medium"
               >
-                Book demo
+                We'll reach out to you!
               </Button>
             </form>
           </div>
