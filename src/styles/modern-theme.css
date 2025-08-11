@@ -1,0 +1,9 @@
+/* Modern Design System */
+
+/* Custom Font Imports */
+@import url('https://api.fontshare.com/v2/css?f[]=satoshi@400,500,600,700,800,900&display=swap');
+
+/* Global Background */
+body {
+  background-color: #F8F8F5;
+}

@@ -1,4 +1,4 @@
-import LandingPage from './components/LandingPage';
+import LandingPageRedesign from './components/LandingPageRedesign';
 import About from './components/About';
 import DocumentPicker from './components/DocumentPicker';
 import Canvas from './components/Canvas';
@@ -89,7 +89,7 @@ function LandingOnly() {
     );
   }
 
-  return <LandingPage onConnect={handleConnect} onNavigateToAbout={handleNavigateToAbout} />;
+  return <LandingPageRedesign onConnect={handleConnect} onNavigateToAbout={handleNavigateToAbout} />;
 }
 
 export default LandingOnly;
