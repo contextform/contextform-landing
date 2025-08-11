@@ -157,7 +157,7 @@ export default function LandingPageRedesign({ onNavigateToAbout }: LandingPagePr
           }}
         />
         <div className="relative z-10 max-w-4xl mx-auto">
-          <div className="flex flex-wrap items-center justify-center gap-3 sm:flex-nowrap">
+          <div className="grid grid-cols-2 sm:flex sm:flex-nowrap items-center justify-center gap-3">
             {/* Input */}
             <div className="flex flex-col items-center gap-2">
               <Badge className="bg-blue-100 text-blue-700 hover:bg-blue-100 rounded-sm">Input</Badge>
@@ -241,12 +241,12 @@ export default function LandingPageRedesign({ onNavigateToAbout }: LandingPagePr
       <section id="demo" className="py-20 bg-card">
         <div className="max-w-7xl mx-auto px-6">
           
-          <div className="relative rounded-[calc(var(--radius)+1rem)] overflow-hidden shadow-lg bg-muted/20">
+          <div className="relative rounded-[calc(var(--radius)+1rem)] overflow-hidden shadow-lg bg-muted/20 hover:shadow-2xl hover:scale-105 transition-all duration-300 cursor-pointer">
             <div className="aspect-video flex items-center justify-center">
               <video 
                 className="w-full h-full object-cover"
                 controls
-                poster="/assets/contextform_v0_poster.jpg"
+                poster="/contextform-demo-poster.png"
               >
                 <source src="/assets/contextform_v0.mp4" type="video/mp4" />
               </video>
@@ -365,18 +365,27 @@ export default function LandingPageRedesign({ onNavigateToAbout }: LandingPagePr
                 ✕
               </button>
             </div>
-            <form className="space-y-4">
+            <form 
+              action="https://formspree.io/f/mrblrvan" 
+              method="POST"
+              className="space-y-4"
+            >
               <input
                 type="text"
+                name="name"
                 placeholder="Name"
+                required
                 className="w-full px-4 py-3 border border-border rounded-[var(--radius)] focus:outline-none focus:ring-2 focus:ring-ring bg-background text-foreground"
               />
               <input
                 type="email"
+                name="email"
                 placeholder="Email"
+                required
                 className="w-full px-4 py-3 border border-border rounded-[var(--radius)] focus:outline-none focus:ring-2 focus:ring-ring bg-background text-foreground"
               />
               <textarea
+                name="message"
                 placeholder="Message (Optional)"
                 rows={4}
                 className="w-full px-4 py-3 border border-border rounded-[var(--radius)] focus:outline-none focus:ring-2 focus:ring-ring bg-background text-foreground resize-none"
