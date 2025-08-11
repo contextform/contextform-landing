@@ -107,7 +107,7 @@ export default function LandingPageRedesign({ onNavigateToAbout }: LandingPagePr
         <div className="relative z-10 max-w-7xl mx-auto">
           <div className={`text-center space-y-8 transition-all duration-1000 bg-background/95 backdrop-blur-sm rounded-3xl p-12 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-[2.5rem]'}`}>
             {/* Main Headline */}
-            <h1 className="font-sans text-6xl md:text-8xl text-foreground font-medium" style={{lineHeight: '1.2'}}>
+            <h1 className="font-sans text-6xl md:text-8xl text-foreground font-medium tracking-wide" style={{lineHeight: '1.2'}}>
               AI Agents for
               <br />
               <span className="text-foreground">
@@ -116,7 +116,7 @@ export default function LandingPageRedesign({ onNavigateToAbout }: LandingPagePr
             </h1>
 
             {/* Subheadline */}
-            <p className="font-sans text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
+            <p className="font-sans text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto tracking-wide">
               Capture Modeling Memory. Generate CAD. Iterate at Speed.
               <br />
               AI agents that learn from your CAD engineering process.
@@ -157,10 +157,10 @@ export default function LandingPageRedesign({ onNavigateToAbout }: LandingPagePr
           }}
         />
         <div className="relative z-10 max-w-4xl mx-auto">
-          <div className="grid grid-cols-2 sm:flex sm:flex-nowrap items-center justify-center gap-3">
+          <div className="grid grid-cols-2 sm:flex sm:flex-nowrap items-center justify-center gap-3 justify-items-center">
             {/* Input */}
-            <div className="flex flex-col items-center gap-2">
-              <Badge className="bg-blue-100 text-blue-700 hover:bg-blue-100 rounded-sm">Input</Badge>
+            <div className={`flex flex-col items-center gap-2 transition-all duration-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`} style={{ transitionDelay: '100ms' }}>
+              <Badge className="bg-blue-100 text-blue-700 hover:bg-blue-100 rounded-sm text-base font-semibold">Input</Badge>
               <Card className="w-36 h-28 flex items-center justify-center border border-muted-foreground/20 bg-background shadow-lg">
                 <CardContent className="p-0 relative w-8 h-8">
                   {workflowIcons.input.map((icon, index) => (
@@ -182,8 +182,8 @@ export default function LandingPageRedesign({ onNavigateToAbout }: LandingPagePr
             <span className="text-gray-400 text-xl self-center mt-6">→</span>
             
             {/* CAD Memory */}
-            <div className="flex flex-col items-center gap-2">
-              <Badge className="bg-yellow-100 text-yellow-700 hover:bg-yellow-100 rounded-sm">CAD Memory</Badge>
+            <div className={`flex flex-col items-center gap-2 transition-all duration-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`} style={{ transitionDelay: '300ms' }}>
+              <Badge className="bg-yellow-100 text-yellow-700 hover:bg-yellow-100 rounded-sm text-base font-semibold">CAD Memory</Badge>
               <Card className="w-36 h-28 flex items-center justify-center border border-muted-foreground/20 bg-background shadow-lg">
                 <CardContent className="p-0">
                   <img 
@@ -198,8 +198,8 @@ export default function LandingPageRedesign({ onNavigateToAbout }: LandingPagePr
             <span className="text-gray-400 text-xl self-center mt-6">→</span>
             
             {/* LLM */}
-            <div className="flex flex-col items-center gap-2">
-              <Badge className="bg-yellow-100 text-yellow-700 hover:bg-yellow-100 rounded-sm">LLM</Badge>
+            <div className={`flex flex-col items-center gap-2 transition-all duration-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`} style={{ transitionDelay: '500ms' }}>
+              <Badge className="bg-yellow-100 text-yellow-700 hover:bg-yellow-100 rounded-sm text-base font-semibold">LLM</Badge>
               <Card className="w-36 h-28 flex items-center justify-center border border-muted-foreground/20 bg-background shadow-lg">
                 <CardContent className="p-0 relative w-8 h-8">
                   {workflowIcons.llm.map((icon, index) => (
@@ -221,8 +221,8 @@ export default function LandingPageRedesign({ onNavigateToAbout }: LandingPagePr
             <span className="text-gray-400 text-xl self-center mt-6">→</span>
             
             {/* CAD Model */}
-            <div className="flex flex-col items-center gap-2">
-              <Badge className="bg-green-100 text-green-700 hover:bg-green-100 rounded-sm">CAD Model</Badge>
+            <div className={`flex flex-col items-center gap-2 transition-all duration-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`} style={{ transitionDelay: '700ms' }}>
+              <Badge className="bg-green-100 text-green-700 hover:bg-green-100 rounded-sm text-base font-semibold">CAD Model</Badge>
               <Card className="w-36 h-28 flex items-center justify-center border border-muted-foreground/20 bg-background shadow-lg">
                 <CardContent className="p-0">
                   <img 
@@ -238,7 +238,7 @@ export default function LandingPageRedesign({ onNavigateToAbout }: LandingPagePr
       </section>
 
       {/* Video Demo Section */}
-      <section id="demo" className="py-20 bg-card">
+      <section id="demo" className="py-0 sm:py-20 bg-card">
         <div className="max-w-7xl mx-auto px-6">
           
           <div className="relative rounded-[calc(var(--radius)+1rem)] overflow-hidden shadow-lg bg-muted/20 hover:shadow-2xl hover:scale-105 transition-all duration-300 cursor-pointer">
@@ -260,13 +260,13 @@ export default function LandingPageRedesign({ onNavigateToAbout }: LandingPagePr
       <section id="features" className="py-20 bg-background">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
-            <div className="text-sm font-medium text-muted-foreground mb-4 tracking-wider">FEATURES</div>
-            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+            <div className="text-sm font-medium text-muted-foreground mb-4 tracking-wide">FEATURES</div>
+            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4 tracking-wide">
               Engineered for Speed,
               <br />
               Built for Precision
             </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto tracking-wide">
               Our powerful AI features are tailored to enhance every aspect of your CAD design process.
             </p>
           </div>
@@ -275,10 +275,10 @@ export default function LandingPageRedesign({ onNavigateToAbout }: LandingPagePr
             {/* CAD Tools Integration */}
             <Card className="hover:shadow-lg transition-shadow border border-muted-foreground/20">
               <CardContent className="p-8 relative">
-                <h3 className="text-xl font-semibold text-foreground mb-3">
+                <h3 className="text-xl font-semibold text-foreground mb-3 tracking-wide">
                   CAD Tools Integration
                 </h3>
-                <p className="text-muted-foreground leading-relaxed mb-8">
+                <p className="text-muted-foreground leading-relaxed mb-8 tracking-wide">
                   Works seamlessly with your familiar CAD tools: Onshape, SolidWorks, Fusion 360, NX, FreeCAD, Rhino, and other major CAD platforms.
                 </p>
               </CardContent>
@@ -287,10 +287,10 @@ export default function LandingPageRedesign({ onNavigateToAbout }: LandingPagePr
             {/* Instant DFM Checks */}
             <Card className="hover:shadow-lg transition-shadow border border-muted-foreground/20">
               <CardContent className="p-8 relative">
-                <h3 className="text-xl font-semibold text-foreground mb-3">
+                <h3 className="text-xl font-semibold text-foreground mb-3 tracking-wide">
                   Instant DFM Checks
                 </h3>
-                <p className="text-muted-foreground leading-relaxed mb-8">
+                <p className="text-muted-foreground leading-relaxed mb-8 tracking-wide">
                   Real-time manufacturing checks leveraging contextform CAD agent to iterate and regenerate models fast, preventing costly issues early.
                 </p>
               </CardContent>
@@ -299,10 +299,10 @@ export default function LandingPageRedesign({ onNavigateToAbout }: LandingPagePr
             {/* Iterative CAD Memory */}
             <Card className="hover:shadow-lg transition-shadow border border-muted-foreground/20">
               <CardContent className="p-8 relative">
-                <h3 className="text-xl font-semibold text-foreground mb-3">
+                <h3 className="text-xl font-semibold text-foreground mb-3 tracking-wide">
                   Iterative CAD Memory
                 </h3>
-                <p className="text-muted-foreground leading-relaxed mb-8">
+                <p className="text-muted-foreground leading-relaxed mb-8 tracking-wide">
                   AI that remembers design decisions, learns from modeling patterns, tracks design intent, and captures modeling steps over time.
                 </p>
               </CardContent>
@@ -311,10 +311,10 @@ export default function LandingPageRedesign({ onNavigateToAbout }: LandingPagePr
             {/* LLM Agent Connect */}
             <Card className="hover:shadow-lg transition-shadow border border-muted-foreground/20">
               <CardContent className="p-8 relative">
-                <h3 className="text-xl font-semibold text-foreground mb-3">
+                <h3 className="text-xl font-semibold text-foreground mb-3 tracking-wide">
                   LLM Agent Connect
                 </h3>
-                <p className="text-muted-foreground leading-relaxed mb-8">
+                <p className="text-muted-foreground leading-relaxed mb-8 tracking-wide">
                   Integrates with Claude Code, Cursor CLI, and OpenAI Codex to enable natural language CAD interactions.
                 </p>
               </CardContent>
