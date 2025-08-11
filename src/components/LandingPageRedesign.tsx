@@ -95,7 +95,7 @@ export default function LandingPageRedesign({ onNavigateToAbout }: LandingPagePr
       </nav>
 
       {/* Hero Section */}
-      <section className="relative pt-32 pb-10 px-6 overflow-hidden">
+      <section className="relative pt-20 sm:pt-32 pb-10 px-6 overflow-hidden">
         {/* Grid Cross Pattern Background */}
         <div 
           className="absolute inset-0 opacity-[0.1]"
@@ -157,7 +157,7 @@ export default function LandingPageRedesign({ onNavigateToAbout }: LandingPagePr
           }}
         />
         <div className="relative z-10 max-w-4xl mx-auto">
-          <div className="flex items-center justify-center gap-3">
+          <div className="flex flex-wrap items-center justify-center gap-3 sm:flex-nowrap">
             {/* Input */}
             <div className="flex flex-col items-center gap-2">
               <Badge className="bg-blue-100 text-blue-700 hover:bg-blue-100 rounded-sm">Input</Badge>
