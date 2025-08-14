@@ -1,5 +1,5 @@
 {
-  "buildCommand": "npm run build && cp freecad-mcp.html dist/ && cp sitemap.xml dist/",
+  "buildCommand": "npm run build && cp freecad-mcp.html dist/ && cp sitemap.xml dist/ && cp public/robots.txt dist/",
   "outputDirectory": "dist",
   "rewrites": [
     {
