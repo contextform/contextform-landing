@@ -1,0 +1,21 @@
+{
+  "buildCommand": "npm run build && cp freecad-mcp.html dist/ && cp sitemap.xml dist/",
+  "outputDirectory": "dist",
+  "rewrites": [
+    {
+      "source": "/freecad-mcp",
+      "destination": "/freecad-mcp.html"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/sitemap.xml",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/xml"
+        }
+      ]
+    }
+  ]
+}
