@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FreeCAD MCP - Open Source CAD Automation Tools | ContextForm</title>
+  <meta name="description" content="FreeCAD MCP is an open-source Model Context Protocol server for FreeCAD automation. Integrate AI assistants with FreeCAD for automated CAD workflows. View the GitHub repository for downloads and documentation." />
+  <meta name="keywords" content="FreeCAD MCP, FreeCAD automation, Model Context Protocol, CAD automation, FreeCAD API, FreeCAD tools, ContextForm" />
+  
+  <!-- Open Graph meta tags for social sharing -->
+  <meta property="og:title" content="FreeCAD MCP - Open Source CAD Automation Tools" />
+  <meta property="og:description" content="Open-source Model Context Protocol server for FreeCAD automation. Connect AI assistants to FreeCAD for automated CAD workflows." />
+  <meta property="og:url" content="https://contextform.dev/freecad-mcp/" />
+  <meta property="og:type" content="website" />
+  
+  <link rel="canonical" href="https://contextform.dev/freecad-mcp/" />
+  
+  <!-- Structured data for better SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "FreeCAD MCP",
+    "applicationCategory": "CAD Software Tool",
+    "operatingSystem": "Cross-platform",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "creator": {
+      "@type": "Organization",
+      "name": "ContextForm",
+      "url": "https://contextform.dev"
+    },
+    "url": "https://github.com/contextform/freecad-mcp",
+    "description": "Model Context Protocol server for FreeCAD automation"
+  }
+  </script>
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+    
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 12px;
+      padding: 40px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    }
+    
+    h1 {
+      color: #2d3748;
+      margin-bottom: 20px;
+      font-size: 2.5rem;
+    }
+    
+    h2 {
+      color: #4a5568;
+      margin-top: 30px;
+      margin-bottom: 15px;
+      font-size: 1.5rem;
+    }
+    
+    p {
+      margin-bottom: 15px;
+      color: #4a5568;
+    }
+    
+    .highlight {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: bold;
+    }
+    
+    .github-link {
+      display: inline-block;
+      margin: 30px 0;
+      padding: 15px 30px;
+      background: #24292e;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: bold;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    
+    .github-link:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+    
+    .features {
+      background: #f7fafc;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 20px 0;
+    }
+    
+    .features ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    
+    .features li {
+      margin: 10px 0;
+      padding-left: 25px;
+      position: relative;
+    }
+    
+    .features li:before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: #48bb78;
+      font-weight: bold;
+    }
+    
+    .code-block {
+      background: #2d3748;
+      color: #e2e8f0;
+      padding: 20px;
+      border-radius: 8px;
+      margin: 20px 0;
+      overflow-x: auto;
+    }
+    
+    .code-block code {
+      font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+      font-size: 14px;
+    }
+    
+    footer {
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid #e2e8f0;
+      text-align: center;
+      color: #718096;
+    }
+    
+    footer a {
+      color: #667eea;
+      text-decoration: none;
+    }
+    
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1><span class="highlight">FreeCAD MCP</span></h1>
+    <p><strong>FreeCAD MCP</strong> is an open-source Model Context Protocol (MCP) server that enables AI assistants to interact with <strong>FreeCAD</strong>, the popular open-source parametric 3D CAD modeler. By implementing the MCP standard, <strong>FreeCAD MCP</strong> allows AI tools like Claude, ChatGPT, and other LLMs to directly control and automate FreeCAD workflows.</p>
+    
+    <a href="https://github.com/contextform/freecad-mcp" class="github-link" target="_blank" rel="noopener">
+      🔗 View on GitHub - FreeCAD MCP Repository
+    </a>
+    
+    <h2>What is FreeCAD MCP?</h2>
+    <p><strong>FreeCAD MCP</strong> bridges the gap between AI assistants and CAD automation. It provides a standardized interface for AI models to:</p>
+    
+    <div class="features">
+      <ul>
+        <li>Create and modify 3D models programmatically</li>
+        <li>Extract design parameters and features</li>
+        <li>Generate technical drawings automatically</li>
+        <li>Perform batch operations on CAD files</li>
+        <li>Integrate CAD workflows with AI-powered design tools</li>
+      </ul>
+    </div>
+    
+    <h2>Key Features</h2>
+    <p>The <strong>FreeCAD MCP</strong> server implements the Model Context Protocol specification, providing:</p>
+    
+    <div class="features">
+      <ul>
+        <li><strong>Full FreeCAD API Access</strong> - Complete control over FreeCAD's Python API</li>
+        <li><strong>Sketch Creation</strong> - Automated 2D sketch generation with constraints</li>
+        <li><strong>3D Operations</strong> - Extrude, revolve, loft, and other 3D operations</li>
+        <li><strong>Parametric Design</strong> - Modify parameters and see real-time updates</li>
+        <li><strong>File Management</strong> - Open, save, and export in multiple CAD formats</li>
+        <li><strong>Assembly Tools</strong> - Create and manage complex assemblies</li>
+      </ul>
+    </div>
+    
+    <h2>Installation</h2>
+    <p>Getting started with <strong>FreeCAD MCP</strong> is simple:</p>
+    
+    <div class="code-block">
+      <code>
+# Clone the FreeCAD MCP repository<br>
+git clone https://github.com/contextform/freecad-mcp.git<br>
+<br>
+# Install dependencies<br>
+cd freecad-mcp<br>
+npm install<br>
+<br>
+# Start the MCP server<br>
+npm start
+      </code>
+    </div>
+    
+    <h2>Use Cases</h2>
+    <p><strong>FreeCAD MCP</strong> enables powerful automation scenarios:</p>
+    
+    <div class="features">
+      <ul>
+        <li><strong>AI-Assisted Design</strong> - Let AI help you create complex geometries</li>
+        <li><strong>Batch Processing</strong> - Automate repetitive CAD tasks</li>
+        <li><strong>Design Optimization</strong> - Use AI to optimize parameters</li>
+        <li><strong>Documentation Generation</strong> - Auto-generate technical drawings</li>
+        <li><strong>Quality Checks</strong> - Automated design validation and testing</li>
+      </ul>
+    </div>
+    
+    <h2>Why FreeCAD MCP?</h2>
+    <p>Traditional CAD automation requires deep knowledge of scripting languages and CAD APIs. <strong>FreeCAD MCP</strong> changes this by allowing you to describe what you want in natural language, and letting AI handle the implementation details. Whether you're a mechanical engineer, product designer, or hobbyist, <strong>FreeCAD MCP</strong> makes CAD automation accessible to everyone.</p>
+    
+    <h2>Open Source & Community</h2>
+    <p><strong>FreeCAD MCP</strong> is completely open source and welcomes contributions from the community. Whether you want to add new features, fix bugs, or improve documentation, your contributions are valued.</p>
+    
+    <a href="https://github.com/contextform/freecad-mcp" class="github-link" target="_blank" rel="noopener">
+      🚀 Get Started with FreeCAD MCP on GitHub
+    </a>
+    
+    <h2>Documentation & Support</h2>
+    <p>For detailed documentation, examples, and API reference, visit the <a href="https://github.com/contextform/freecad-mcp" target="_blank" rel="noopener"><strong>FreeCAD MCP GitHub repository</strong></a>. You'll find:</p>
+    
+    <div class="features">
+      <ul>
+        <li>Quick start guides</li>
+        <li>API documentation</li>
+        <li>Example scripts and use cases</li>
+        <li>Troubleshooting guides</li>
+        <li>Community support via GitHub Issues</li>
+      </ul>
+    </div>
+    
+    <footer>
+      <p>Created by <a href="https://contextform.dev" target="_blank" rel="noopener">ContextForm</a> | 
+      <a href="https://github.com/contextform/freecad-mcp" target="_blank" rel="noopener">GitHub</a> | 
+      <a href="https://github.com/contextform/freecad-mcp/issues" target="_blank" rel="noopener">Report Issues</a></p>
+    </footer>
+  </div>
+</body>
+</html>
